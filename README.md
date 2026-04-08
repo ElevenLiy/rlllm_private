@@ -1,20 +1,10 @@
 # rllm-private
 
-这个仓库是当前私有协作镜像，目前跑了两个数据集方向：
-
-- `OpenThoughts nl2bash`
-- `terminal-bench`
-
-其中：
-
-- `OpenThoughts nl2bash` 是当前主要复现路径，也是目前 `main` 分支默认对应的训练口径。
-- `terminal-bench` 之前已经实际跑过，但还没有完全打通，当前主要卡在高并发下的控制面稳定性问题。
+这个仓库用于复现当前的 `OpenThoughts nl2bash` 和 `terminal-bench` 相关训练链路。
 
 ## 分支说明
 
-- `main`：当前可复现协作分支。
-- `upstream-main`：从训练机导入的上游基线分支。
-
+- `main`：当前默认复现分支。
 
 ```bash
 git clone git@github.com:to1a/rllm-private.git
@@ -24,22 +14,18 @@ git branch --show-current
 
 ## 最小启动
 
-如果机器已经具备可用的 Python/CUDA/vLLM/flash-attn 环境，可以先直接按下面这组命令起 OpenThoughts 9B 训练：
+其他机器接手时，只使用共享 `/data` 里的 wheelhouse、模型、数据和 K8s 连接材料。
 
 ```bash
 git clone git@github.com:to1a/rllm-private.git
 cd rllm-private
 
-# 推荐：新建 Python 3.12 环境后，先按锁文件安装第三方依赖
-pip install -r requirements/openthoughts_terminal_bench.lock.txt
+pip install --no-index \
+  --find-links /data/wheelhouse/openthoughts_terminal_bench_py312 \
+  -r requirements/openthoughts_terminal_bench.lock.txt
 
-# rllm 和 verl 都固定用仓内代码
 pip install --no-build-isolation --no-deps -e third_party/verl
 pip install --no-build-isolation --no-deps -e .
-
-# 如果当前 shell 已经在可用环境里，可以不设 VENV_PATH。
-# 如果依赖不在当前环境里，再按需指定，例如：
-# export VENV_PATH=/path/to/your/venv
 
 export TB_EXECUTION_BACKEND=k8s
 export TB_KUBECONFIG=/data/k8s_access/kubeconfig
@@ -50,27 +36,12 @@ export MODEL_PATH=/data/models/Qwen3___5-9B
 bash scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh
 ```
 
-如果要做可打包/离线分发，直接使用同一份锁文件和 wheelhouse 脚本：
+共享 `/data` 上当前默认依赖的资源：
 
-- `requirements/openthoughts_terminal_bench.lock.txt`
-- `scripts/openthoughts_terminal_bench/build_wheelhouse.sh`
-- `requirements/README.md`
-
-典型流程：
-
-```bash
-bash scripts/openthoughts_terminal_bench/build_wheelhouse.sh
-
-# 目标机器
-pip install --no-index --find-links /path/to/wheelhouse -r requirements/openthoughts_terminal_bench.lock.txt
-pip install --no-build-isolation --no-deps -e third_party/verl
-pip install --no-build-isolation --no-deps -e .
-```
-
-这条命令默认依赖共享 `/data` 上已经准备好的 3 类资源：
-
-- `OpenThoughts` 任务数据：`/data/openthoughts-extracted-tasks`
-- `Qwen3.5-9B` 模型：`/data/models/Qwen3___5-9B`
+- wheelhouse：`/data/wheelhouse/openthoughts_terminal_bench_py312`
+- OpenThoughts 任务数据：`/data/openthoughts-extracted-tasks`
+- Terminal-Bench 任务数据：`/data/terminal-bench-2`
+- Qwen3.5-9B 模型：`/data/models/Qwen3___5-9B`
 - K8s 连接材料：`/data/k8s_access/kubeconfig` 和 `/data/k8s_access/kubectl.real`
 
 ## 代码入口
@@ -82,10 +53,10 @@ pip install --no-build-isolation --no-deps -e .
 - 仓内环境实现：`scripts/openthoughts_terminal_bench/terminal_bench_direct_env.py`
 - 仓内固定 `verl`：`third_party/verl/`
 
-## 当前主训练口径
+## 当前默认训练口径
 
 - 模型：`Qwen3.5-9B`
-- 当前主数据集：`openthoughts_nl2bash`
+- 数据集：`openthoughts_nl2bash`
 - 默认任务路径：`/data/openthoughts-extracted-tasks`
 - 默认模型路径：`/data/models/Qwen3___5-9B`
 - train tasks：`655`
@@ -103,20 +74,7 @@ pip install --no-build-isolation --no-deps -e .
 - `trainer.logger=[console,tensorboard]`
 - `TB_KUBE_CONTROL_MAX_PARALLEL=256`
 
-## 数据路径
-
-数据集和任务目录按机器本地路径处理。
-
-- 如果机器有共享 `/data` 挂载，可以把数据放在 `/data`。
-- 通过 `TB_TASKS_ROOT` 等环境变量指向实际路径即可。
-
 ## K8s 连接材料
-
-为了方便多人直接接手，当前两个 GPU 集群的共享 `/data` 都放了一份同路径的最小 K8s 连接材料：
-
-| 机器 | kubeconfig | kubectl |
-|---|---|---|
-| 共享 `/data` 路径 | `/data/k8s_access/kubeconfig` | `/data/k8s_access/kubectl.real` |
 
 最小环境变量示例：
 
@@ -132,6 +90,4 @@ export TB_KUBE_READY_TIMEOUT=1800
 
 ## 关于 `verl`
 
-这里默认要求使用仓内的 `third_party/verl/`，不要再把系统里某个已安装但来源不明的 `verl` 当成主版本。
-
-外部 Python / CUDA / flash-attn / vLLM 环境可以继续沿用机器现有环境；但只要涉及 `verl` 行为对齐，统一以仓内这份为准。
+统一使用仓内的 `third_party/verl/`，不要使用机器上其他来源不明的 `verl`。

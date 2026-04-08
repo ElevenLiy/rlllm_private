@@ -10,6 +10,12 @@ PIP_BIN="${PIP_BIN:-${PYTHON_BIN} -m pip}"
 
 mkdir -p "${WHEELHOUSE_DIR}"
 
+# Help flash-attn build on GPU machines that expose CUDA in the standard location.
+if [ -z "${CUDA_HOME:-}" ] && [ -d /usr/local/cuda ]; then
+  export CUDA_HOME=/usr/local/cuda
+fi
+export FLASH_ATTN_CUDA_ARCHS="${FLASH_ATTN_CUDA_ARCHS:-90}"
+
 # Build/download all third-party wheels pinned in the shared lock file without re-resolving dependencies.
 ${PYTHON_BIN} -m pip wheel --no-deps -r "${LOCKFILE}" -w "${WHEELHOUSE_DIR}"
 

@@ -71,7 +71,6 @@ exec python3 "${SCRIPT_DIR}/train_terminal_bench_direct_rllm.py" \
   data.max_prompt_length=8192 \
   data.max_response_length=24576 \
   actor_rollout_ref.model.path="${MODEL_PATH}" \
-
   actor_rollout_ref.hybrid_engine=true \
   actor_rollout_ref.model.lora_rank=0 \
   +actor_rollout_ref.model.override_config.attn_implementation=sdpa \

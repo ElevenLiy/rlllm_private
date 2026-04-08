@@ -1059,37 +1059,82 @@ class TerminalBenchDirectEnv(BaseEnv):
             raise RuntimeError("Container is not initialized")
         seeds_dir = self._task_file("environment/seeds")
         if os.path.isdir(seeds_dir):
-            source_cmd = f"tar -C {shlex.quote(seeds_dir)} -cf - ."
+            source_args = ["tar", "-C", seeds_dir, "-cf", "-", "."]
         else:
-            # seeds dir might be on remote host
-            check_cmd = " ".join(
-                shlex.quote(part) for part in [*self._ssh_base_command(), f"test -d {shlex.quote(seeds_dir)} && echo exists"]
-            )
-            check_result = subprocess.run(["/bin/bash", "-c", check_cmd], capture_output=True, text=True, timeout=30)
+            check_result = self._run_remote(f"test -d {shlex.quote(seeds_dir)} && echo exists", check=False, timeout=30)
             if "exists" not in (check_result.stdout or ""):
                 self._log("kubectl:sync_seeds:skip", reason="no seeds dir", seeds_dir=seeds_dir)
                 return
-            source_cmd = " ".join(
-                shlex.quote(part) for part in [*self._ssh_base_command(), f"tar -C {shlex.quote(seeds_dir)} -cf - ."]
-            )
-        kubectl_cmd = " ".join(
-            shlex.quote(part)
-            for part in [
-                *self._kubectl_base_command(),
-                "exec", "-i", self.container_name, "--",
-                "bash", "-lc", "mkdir -p /workspace && tar -xf - -C /workspace",
-            ]
-        )
-        pipeline = f"set -o pipefail; {source_cmd} | {kubectl_cmd}"
-        self._log("kubectl:sync_seeds:start", container_name=self.container_name, seeds_dir=seeds_dir)
+            source_args = [*self._ssh_base_command(), f"tar -C {shlex.quote(seeds_dir)} -cf - ."]
+        dest_args = [
+            *self._kubectl_base_command(),
+            "exec",
+            "-i",
+            self.container_name,
+            "--",
+            "bash",
+            "-lc",
+            "mkdir -p /workspace && tar -xf - -C /workspace",
+        ]
         env = os.environ.copy()
         default_path = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
         current_path = env.get("PATH", "")
         env["PATH"] = f"{default_path}:{current_path}" if current_path else default_path
-        proc = subprocess.run(["/bin/bash", "-c", pipeline], capture_output=True, text=True, timeout=120, env=env)
-        self._log("kubectl:sync_seeds:end", returncode=proc.returncode, stderr=_truncate(proc.stderr, 300))
-        if proc.returncode != 0:
-            self._log("kubectl:sync_seeds:warn", msg=f"seeds sync failed (non-fatal): {proc.stderr[:200]}")
+        attempts = 3
+        for attempt in range(1, attempts + 1):
+            self._log("kubectl:sync_seeds:start", container_name=self.container_name, seeds_dir=seeds_dir, attempt=attempt)
+            source_proc = None
+            dest_proc = None
+            try:
+                with self._kube_control_gate:
+                    source_proc = subprocess.Popen(source_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
+                    assert source_proc.stdout is not None
+                    dest_proc = subprocess.Popen(dest_args, stdin=source_proc.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
+                    source_proc.stdout.close()
+                    _, dest_stderr = dest_proc.communicate(timeout=120)
+                    _, source_stderr = source_proc.communicate(timeout=30)
+            except (BlockingIOError, OSError, RuntimeError) as exc:
+                error_text = str(exc)
+                self._log("kubectl:sync_seeds:spawn_error", error=error_text, attempt=attempt)
+                transient_spawn_error = "can't start new thread" in error_text or "Resource temporarily unavailable" in error_text
+                if source_proc is not None and source_proc.poll() is None:
+                    source_proc.kill()
+                    source_proc.wait()
+                if dest_proc is not None and dest_proc.poll() is None:
+                    dest_proc.kill()
+                    dest_proc.wait()
+                if transient_spawn_error and attempt < attempts:
+                    time.sleep(min(2 * attempt, 5))
+                    continue
+                raise
+            except subprocess.TimeoutExpired:
+                if dest_proc is not None and dest_proc.poll() is None:
+                    dest_proc.kill()
+                    dest_proc.wait()
+                if source_proc is not None and source_proc.poll() is None:
+                    source_proc.kill()
+                    source_proc.wait()
+                self._log("kubectl:sync_seeds:warn", msg="seeds sync timed out (non-fatal)")
+                return
+
+            dest_stderr_text = dest_stderr.decode("utf-8", errors="replace") if dest_stderr else ""
+            source_stderr_text = source_stderr.decode("utf-8", errors="replace") if source_stderr else ""
+            source_returncode = source_proc.returncode if source_proc is not None else None
+            dest_returncode = dest_proc.returncode if dest_proc is not None else None
+            combined_stderr = "\n".join(part for part in [dest_stderr_text, source_stderr_text] if part)
+            self._log(
+                "kubectl:sync_seeds:end",
+                returncode=dest_returncode,
+                source_returncode=source_returncode,
+                stderr=_truncate(combined_stderr, 300),
+            )
+            if dest_returncode == 0 and source_returncode == 0:
+                return
+            if attempt < attempts and "Resource temporarily unavailable" in combined_stderr:
+                time.sleep(min(2 * attempt, 5))
+                continue
+            self._log("kubectl:sync_seeds:warn", msg=f"seeds sync failed (non-fatal): {combined_stderr[:200]}")
+            return
 
     def _ensure_k8s_task_dirs(self) -> None:
         """Create /output/ and /logs/verifier/ inside the pod (needed by OpenThoughts test.sh)."""
