@@ -33,6 +33,10 @@ cd rllm-private
 pip uninstall verl -y 2>/dev/null
 pip install -e third_party/verl/
 
+# 如果当前 shell 已经在可用环境里，可以不设 VENV_PATH。
+# 如果依赖不在当前环境里，再按需指定，例如：
+# export VENV_PATH=/path/to/your/venv
+
 export TB_EXECUTION_BACKEND=k8s
 export TB_KUBECONFIG=/data/k8s_access/kubeconfig
 export TB_KUBECTL_BIN=/data/k8s_access/kubectl.real

@@ -9,8 +9,27 @@ set -euo pipefail
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 REPO_ROOT=$(cd -- "${SCRIPT_DIR}/../.." && pwd)
-VENV_PATH="${VENV_PATH:-/root/work/.venv-rllm}"
-source "${VENV_PATH}/bin/activate"
+DEFAULT_VENV_PATH=/root/work/.venv-rllm
+VENV_PATH="${VENV_PATH:-${DEFAULT_VENV_PATH}}"
+
+python_env_ok() {
+  python3 -c 'import hydra, rllm' >/dev/null 2>&1
+}
+
+if python_env_ok; then
+  echo "Using current Python environment" >&2
+elif [ -f "${VENV_PATH}/bin/activate" ]; then
+  # Fall back to the configured venv only when the current shell lacks dependencies.
+  source "${VENV_PATH}/bin/activate"
+  if ! python_env_ok; then
+    echo "Python environment still missing required packages after activating ${VENV_PATH}" >&2
+    exit 1
+  fi
+else
+  echo "Current Python environment is missing required packages, and VENV_PATH is unavailable: ${VENV_PATH}" >&2
+  echo "Set VENV_PATH to a usable environment or install dependencies into the current shell." >&2
+  exit 1
+fi
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:False
 
