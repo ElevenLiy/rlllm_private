@@ -1,6 +1,6 @@
 # rllm-private
 
-这个仓库是当前私有协作镜像，主要围绕两个数据集方向：
+这个仓库是当前私有协作镜像，目前跑了两个数据集方向：
 
 - `OpenThoughts nl2bash`
 - `terminal-bench`
@@ -15,7 +15,6 @@
 - `main`：当前可复现协作分支。
 - `upstream-main`：从训练机导入的上游基线分支。
 
-如果你想直接接着当前工作继续，默认使用 `main`：
 
 ```bash
 git clone git@github.com:to1a/rllm-private.git
@@ -53,10 +52,28 @@ git branch --show-current
 数据集和任务目录按机器本地路径处理。
 
 - 如果机器有共享 `/data` 挂载，可以把数据放在 `/data`。
-- 如果没有，就放在该机器任意合适的位置。
 - 通过 `TB_TASKS_ROOT` 等环境变量指向实际路径即可。
 
-`/data` 是可选项，不是硬依赖。
+## K8s 连接材料
+
+为了方便多人直接接手，当前两台 GPU 机的 `/data` 都放了一份最小 K8s 连接材料：
+
+| 机器 | kubeconfig | kubectl |
+|---|---|---|
+| `47.101.174.157:31175` | `/data/k8s_access/31175/kubeconfig` | `/data/k8s_access/31175/kubectl.real` |
+| `47.101.174.157:31369` | `/data/k8s_access/31369/kubeconfig` | `/data/k8s_access/31369/kubectl.real` |
+
+最小环境变量示例：
+
+```bash
+export TB_EXECUTION_BACKEND=k8s
+export TB_KUBECONFIG=/data/k8s_access/31175/kubeconfig
+export TB_KUBECTL_BIN=/data/k8s_access/31175/kubectl.real
+export TB_KUBE_NAMESPACE=terminal-bench
+export TB_KUBE_READY_TIMEOUT=1800
+```
+
+注意：`kubeconfig` 带集群访问权限，按凭证文件对待，不要随意外传。
 
 ## 关于 `verl`
 
