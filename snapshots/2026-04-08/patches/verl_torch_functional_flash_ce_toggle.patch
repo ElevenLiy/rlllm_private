@@ -1,0 +1,19 @@
+--- /root/work/.venv-rllm/lib/python3.12/site-packages/verl/utils/torch_functional.py.bak_before_disable_flash_ce_20260407	2026-04-07 13:51:29.192491590 +0000
++++ /root/work/.venv-rllm/lib/python3.12/site-packages/verl/utils/torch_functional.py	2026-04-07 13:51:29.659484240 +0000
+@@ -16,6 +16,7 @@
+ """
+ 
+ import math
++import os
+ from contextlib import contextmanager
+ from typing import Optional
+ 
+@@ -33,7 +34,7 @@
+ try:
+     from flash_attn.ops.triton.cross_entropy import cross_entropy_loss
+ 
+-    FLAH_ATTN_CROSS_ENTROPY_LOSS_AVAILABLE = True
++    FLAH_ATTN_CROSS_ENTROPY_LOSS_AVAILABLE = os.getenv("VERL_FORCE_DISABLE_FLASH_ATTN_CE", "0") != "1"
+ except ImportError:
+     FLAH_ATTN_CROSS_ENTROPY_LOSS_AVAILABLE = False
+ 

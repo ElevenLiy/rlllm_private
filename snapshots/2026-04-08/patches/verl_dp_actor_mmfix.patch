@@ -1,0 +1,14 @@
+--- /root/work/.venv-rllm/lib/python3.12/site-packages/verl/workers/actor/dp_actor.py.bak_before_mm_sp_fix_20260408	2026-04-08 01:17:24.454038901 +0000
++++ /root/work/.venv-rllm/lib/python3.12/site-packages/verl/workers/actor/dp_actor.py	2026-04-08 01:17:24.939031210 +0000
+@@ -145,9 +145,8 @@
+ 
+                 # pad and slice the inputs if sp > 1
+                 if self.use_ulysses_sp:
+-                    is_vlm_model = hasattr(
+-                        getattr(self.actor_module, "module", self.actor_module).config, "vision_config"
+-                    )
++                    actor_config = getattr(self.actor_module, "module", self.actor_module).config
++                    is_vlm_model = bool(multi_modal_inputs) and hasattr(actor_config, "vision_config")
+                     if is_vlm_model:
+                         # vlm model's inputs will be sliced after embedding
+                         input_ids_rmpad, position_ids_rmpad, pad_size = ulysses_pad(
