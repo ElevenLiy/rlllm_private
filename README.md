@@ -54,6 +54,7 @@ bash scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp
 
 - `requirements/openthoughts_terminal_bench.packable.lock.txt`
 - `scripts/openthoughts_terminal_bench/build_wheelhouse.sh`
+- `requirements/README.md`
 
 典型流程：
 
