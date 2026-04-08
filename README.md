@@ -50,9 +50,9 @@ export MODEL_PATH=/data/models/Qwen3___5-9B
 bash scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh
 ```
 
-如果要做可打包/离线分发，优先使用：
+如果要做可打包/离线分发，直接使用同一份锁文件和 wheelhouse 脚本：
 
-- `requirements/openthoughts_terminal_bench.packable.lock.txt`
+- `requirements/openthoughts_terminal_bench.lock.txt`
 - `scripts/openthoughts_terminal_bench/build_wheelhouse.sh`
 - `requirements/README.md`
 
@@ -62,7 +62,7 @@ bash scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp
 bash scripts/openthoughts_terminal_bench/build_wheelhouse.sh
 
 # 目标机器
-pip install --no-index --find-links /path/to/wheelhouse -r requirements/openthoughts_terminal_bench.packable.lock.txt
+pip install --no-index --find-links /path/to/wheelhouse -r requirements/openthoughts_terminal_bench.lock.txt
 pip install --no-build-isolation --no-deps -e third_party/verl
 pip install --no-build-isolation --no-deps -e .
 ```
