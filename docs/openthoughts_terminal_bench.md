@@ -122,12 +122,11 @@ export TB_KUBE_CONTROL_MAX_PARALLEL=256
 
 ### 4.4 环境安装里的 K8s 连接材料
 
-为了让新机器更快接手，当前在两台 GPU 机的 `/data` 下都放了一份最小 K8s 连接材料：
+为了让新机器更快接手，当前两个 GPU 集群的共享 `/data` 下都放了一份同路径的最小 K8s 连接材料：
 
 | 机器 | kubeconfig | kubectl |
 |---|---|---|
-| `47.101.174.157:31175` | `/data/k8s_access/31175/kubeconfig` | `/data/k8s_access/31175/kubectl.real` |
-| `47.101.174.157:31369` | `/data/k8s_access/31369/kubeconfig` | `/data/k8s_access/31369/kubectl.real` |
+| 共享 `/data` 路径 | `/data/k8s_access/kubeconfig` | `/data/k8s_access/kubectl.real` |
 
 推荐最小安装步骤：
 
@@ -136,14 +135,12 @@ pip uninstall verl -y 2>/dev/null
 pip install -e third_party/verl/
 
 export TB_EXECUTION_BACKEND=k8s
-export TB_KUBECONFIG=/data/k8s_access/31175/kubeconfig
-export TB_KUBECTL_BIN=/data/k8s_access/31175/kubectl.real
+export TB_KUBECONFIG=/data/k8s_access/kubeconfig
+export TB_KUBECTL_BIN=/data/k8s_access/kubectl.real
 export TB_KUBE_NAMESPACE=terminal-bench
 export TB_KUBE_READY_TIMEOUT=1800
 export TB_KUBE_CONTROL_MAX_PARALLEL=256
 ```
-
-如果在 `31369` 上跑，把上面两条 `/data/k8s_access/31175/...` 改成 `/data/k8s_access/31369/...` 即可。
 
 注意：
 
