@@ -26,12 +26,17 @@ git branch --show-current
 
 - 主说明文档：`docs/openthoughts_terminal_bench.md`
 - 当前 OpenThoughts 启动脚本：`scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh`
+- 仓内训练入口：`scripts/openthoughts_terminal_bench/train_terminal_bench_direct_rllm.py`
+- 仓内数据注册入口：`scripts/openthoughts_terminal_bench/register_openthoughts_dataset.py`
+- 仓内环境实现：`scripts/openthoughts_terminal_bench/terminal_bench_direct_env.py`
 - 仓内固定 `verl`：`third_party/verl/`
 
 ## 当前主训练口径
 
 - 模型：`Qwen3.5-9B`
 - 当前主数据集：`openthoughts_nl2bash`
+- 默认任务路径：`/data/openthoughts-extracted-tasks`
+- 默认模型路径：`/data/models/Qwen3___5-9B`
 - train tasks：`655`
 - test tasks：`73`
 - `data.train_batch_size=32`

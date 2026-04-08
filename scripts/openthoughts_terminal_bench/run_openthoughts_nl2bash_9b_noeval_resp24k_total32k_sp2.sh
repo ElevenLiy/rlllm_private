@@ -7,12 +7,15 @@ set -euo pipefail
 # No validation before the first train step
 # ============================================================
 
-source /root/work/.venv-rllm/bin/activate
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+REPO_ROOT=$(cd -- "${SCRIPT_DIR}/../.." && pwd)
+VENV_PATH="${VENV_PATH:-/root/work/.venv-rllm}"
+source "${VENV_PATH}/bin/activate"
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:False
 
 # --- OpenThoughts dataset config ---
-export TB_TASKS_ROOT=/root/code/openthoughts-extracted-tasks
+export TB_TASKS_ROOT="${TB_TASKS_ROOT:-/data/openthoughts-extracted-tasks}"
 export TB_RLLM_DATASET_NAME=openthoughts_nl2bash
 export TB_SOURCE_DATASET_NAME=openthoughts-extracted-tasks
 export TB_DEFAULT_DOCKER_IMAGE=openthoughts/nl2bash-base:20260402
@@ -22,6 +25,8 @@ export TB_REPEAT_TEST=1
 
 # --- K8s sandbox config ---
 export TB_EXECUTION_BACKEND=k8s
+export TB_KUBECONFIG="${TB_KUBECONFIG:-/data/k8s_access/kubeconfig}"
+export TB_KUBECTL_BIN="${TB_KUBECTL_BIN:-/data/k8s_access/kubectl.real}"
 export TB_KUBE_READY_TIMEOUT=1800
 export TB_KUBE_CONTROL_MAX_PARALLEL="${TB_KUBE_CONTROL_MAX_PARALLEL:-256}"
 
@@ -29,21 +34,25 @@ export NCCL_NVLS_ENABLE=0
 export VLLM_ALLREDUCE_USE_SYMM_MEM=0
 export VLLM_ALLREDUCE_USE_FLASHINFER=0
 export RUN_NAME=ot-nl2bash-9b-k8s-b32-n8-resp24k-total32k-sp2-noeval-tb-t10
-export TENSORBOARD_DIR="/root/work/tensorboard_log/rllm-openthoughts-nl2bash/${RUN_NAME}"
+export TENSORBOARD_BASE_DIR="${TENSORBOARD_BASE_DIR:-/data/rllm_tensorboard/rllm-openthoughts-nl2bash}"
+export TENSORBOARD_DIR="${TENSORBOARD_BASE_DIR}/${RUN_NAME}"
 
-cd /root/work/rllm
+cd "${REPO_ROOT}"
 
 # Register the OpenThoughts dataset
-python3 /root/work/rllm-local/gpu/register_openthoughts_dataset.py
+python3 "${SCRIPT_DIR}/register_openthoughts_dataset.py"
 
-exec python3 /root/work/rllm-local/gpu/train_terminal_bench_direct_rllm.py \
+MODEL_PATH="${MODEL_PATH:-/data/models/Qwen3___5-9B}"
+
+exec python3 "${SCRIPT_DIR}/train_terminal_bench_direct_rllm.py" \
   algorithm.adv_estimator=grpo \
   data.train_batch_size=32 \
   data.val_batch_size=128 \
   data.dataloader_num_workers=0 \
   data.max_prompt_length=8192 \
   data.max_response_length=24576 \
-  actor_rollout_ref.model.path=/root/.cache/modelscope/hub/models/Qwen/Qwen3___5-9B \
+  actor_rollout_ref.model.path="${MODEL_PATH}" \
+
   actor_rollout_ref.hybrid_engine=true \
   actor_rollout_ref.model.lora_rank=0 \
   +actor_rollout_ref.model.override_config.attn_implementation=sdpa \

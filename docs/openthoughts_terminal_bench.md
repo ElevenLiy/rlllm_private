@@ -12,7 +12,11 @@
 
 - 数据集：`openthoughts_nl2bash`
 - 主启动脚本：`scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh`
-- 任务根目录：`/root/code/openthoughts-extracted-tasks/`（728 个 task，train 655 / test 73）
+- 仓内数据注册入口：`scripts/openthoughts_terminal_bench/register_openthoughts_dataset.py`
+- 仓内训练入口：`scripts/openthoughts_terminal_bench/train_terminal_bench_direct_rllm.py`
+- 仓内环境实现：`scripts/openthoughts_terminal_bench/terminal_bench_direct_env.py`
+- 任务根目录：`/data/openthoughts-extracted-tasks/`（728 个 task，train 655 / test 73）
+- 默认模型路径：`/data/models/Qwen3___5-9B`
 
 ### 1.2 Terminal-Bench（已验证，待稳定）
 
@@ -101,9 +105,9 @@ GPU 训练机上 `/data` 是共享挂载，团队所有成员可直接访问：
 
 | 数据集 | 路径 | 说明 |
 |---|---|---|
-| OpenThoughts nl2bash | `/root/code/openthoughts-extracted-tasks/` | 728 个 task 目录 |
-| Terminal Bench (prepared) | `/root/code/terminal-bench-core-prepared/` | 87 个 task（含 cancel-async-tasks 兼容项） |
-| Terminal Bench (official) | `/root/code/terminal-bench-core-0.1.1-src/tasks/` | 86 个 task |
+| OpenThoughts nl2bash | `/data/openthoughts-extracted-tasks/` | 当前主训练默认路径，728 个 task 目录 |
+| Terminal Bench | `/data/terminal-bench-2/` | 当前共享路径，已同步到两个 GPU 集群 |
+| OpenThoughts 9B 模型 | `/data/models/Qwen3___5-9B/` | 当前主训练默认模型路径 |
 
 ### 4.3 环境变量
 
@@ -169,7 +173,7 @@ K8s 集群 (~42 nodes)
 ### 5.2 训练流程
 
 1. `register_openthoughts_dataset.py` 将任务目录注册到 `DatasetRegistry`
-2. `train_terminal_bench_direct_rllm.py` 从 registry 加载 train/test 数据
+2. `scripts/openthoughts_terminal_bench/train_terminal_bench_direct_rllm.py` 从 registry 加载 train/test 数据
 3. 每条样本不是纯文本，而是 env 样本：
    ```python
    {"task_name": "...", "task_root": "...", "dataset_name": "...", "data_source": "terminal_bench_direct"}
@@ -242,7 +246,7 @@ K8s 集群 (~42 nodes)
 
 ### 8.2 新增环境交互类数据集
 
-不能直接把纯文本数据塞给 `train_terminal_bench_direct_rllm.py`，正确做法：
+不能直接把纯文本数据塞给 `scripts/openthoughts_terminal_bench/train_terminal_bench_direct_rllm.py`，正确做法：
 
 1. 编写对应的 `register_xxx_dataset.py`，生成 env 样本格式
 2. 复用或扩展 `rllm/environments/` 中的环境实现
