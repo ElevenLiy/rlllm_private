@@ -10,6 +10,29 @@ from .utils import PARSER_TEST_MESSAGES
 logger = logging.getLogger(__name__)
 
 
+def _should_reuse_raw_response(raw_response: str, eot_token: str, eos_token: str | None) -> bool:
+    """Only replay raw model text when it looks structurally complete."""
+    if not raw_response:
+        return False
+
+    stripped = raw_response.rstrip()
+    if not stripped:
+        return False
+
+    end_markers = [eot_token.strip()]
+    if eos_token:
+        end_markers.append(eos_token.strip())
+    if any(marker and stripped.endswith(marker) for marker in end_markers):
+        return True
+
+    if "<tool_call>" in stripped and "</tool_call>" not in stripped:
+        return False
+    if "<think>" in stripped and "</think>" not in stripped:
+        return False
+
+    return False
+
+
 def _import_torch():
     try:
         import torch
@@ -27,11 +50,13 @@ class ChatTemplateParser:
 
     def _get_generation_prompt(self, tokenizer):
         messages = [{"role": "assistant", "content": ""}]
-
-        with_prompt = tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
-        without_prompt = tokenizer.apply_chat_template(messages, add_generation_prompt=False, tokenize=False)
-
-        generation_prompt = with_prompt[len(without_prompt) :]
+        try:
+            with_prompt = tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
+            without_prompt = tokenizer.apply_chat_template(messages, add_generation_prompt=False, tokenize=False)
+            generation_prompt = with_prompt[len(without_prompt) :]
+        except Exception:
+            logger.debug("Falling back to empty generation prompt probe for tokenizer %s", getattr(tokenizer, "name_or_path", "<unknown>"))
+            generation_prompt = ""
 
         return generation_prompt
 
@@ -258,6 +283,13 @@ class DeepseekQwenChatTemplateParser(ChatTemplateParser):
         return self.user_token + message["content"]
 
     def parse_assistant(self, message, accumulate_reasoning=False):
+        raw_response = message.get("raw_response")
+        if raw_response and _should_reuse_raw_response(raw_response, self.eot_token, self.eos_token):
+            raw_suffix = raw_response
+            if raw_suffix.startswith(self.assistant_token):
+                raw_suffix = raw_suffix[len(self.assistant_token) :]
+            return self.assistant_token + raw_suffix
+
         content = (message.get("content", None) or "").strip()
         reasoning = (message.get("reasoning", None) or "").strip()
         tool_calls = message.get("tool_calls", None) or []
@@ -384,7 +416,12 @@ class QwenChatTemplateParser(ChatTemplateParser):
         self.image_token = "<|image_pad|>"
         self.vision_start_token = "<|vision_start|>"
         self.vision_end_token = "<|vision_end|>"
-        self.stop_sequences = [151645]
+        stop_sequences = []
+        for token in ("<|im_end|>", "<|im_start|>"):
+            token_id = tokenizer.convert_tokens_to_ids(token)
+            if isinstance(token_id, int) and token_id >= 0:
+                stop_sequences.append(token_id)
+        self.stop_sequences = stop_sequences or [151645]
 
         from rllm.parser.tool_parser import QwenToolParser
 
@@ -452,6 +489,13 @@ class QwenChatTemplateParser(ChatTemplateParser):
         return self.user_token + message["content"] + self.eot_token
 
     def parse_assistant(self, message, accumulate_reasoning=False):
+        raw_response = message.get("raw_response")
+        if raw_response:
+            raw_suffix = raw_response
+            if raw_suffix.startswith(self.assistant_token):
+                raw_suffix = raw_suffix[len(self.assistant_token) :]
+            return self.assistant_token + raw_suffix
+
         content = (message.get("content", None) or "").strip()
         reasoning = (message.get("reasoning", None) or "").strip()
         tool_calls = message.get("tool_calls", None) or []

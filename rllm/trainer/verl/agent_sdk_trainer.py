@@ -140,8 +140,9 @@ class AgentSdkTrainer(RayPPOTrainer):
 
         # Setup proxy config for VERL engine
         add_logprobs = getattr(self.config.algorithm, "rollout_correction", {}).get("rollout_is") is not None
+        proxy_model_name = os.environ.get("RLLM_PROXY_MODEL_NAME") or self.config.actor_rollout_ref.model.path
         proxy_config = {
-            "model_name": self.config.actor_rollout_ref.model.path,
+            "model_name": proxy_model_name,
             "proxy_host": self.config.rllm.sdk.proxy.host,
             "proxy_port": self.config.rllm.sdk.proxy.port,
             "mode": self.config.rllm.sdk.proxy.mode,

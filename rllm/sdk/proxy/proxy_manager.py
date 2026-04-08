@@ -12,6 +12,7 @@ import asyncio
 import atexit
 import logging
 import os
+import socket
 import resource
 import subprocess
 import sys
@@ -377,9 +378,96 @@ class VerlProxyManager(ProxyManager):
             logger.debug(f"Could not check vLLM instrumentation status: {e}")
 
     def _extract_server_addresses(self) -> list[str]:
-        """Extract all vLLM server addresses from VERL's AgentLoopManager."""
-        server_addresses = self.rollout_engine.rollout_manager.server_addresses
-        return server_addresses
+        """Extract and normalize reachable vLLM server addresses from VERL."""
+        raw_server_addresses = list(self.rollout_engine.rollout_manager.server_addresses)
+        logger.info("Raw VERL server addresses: %s", raw_server_addresses)
+
+        normalized_addresses: list[str] = []
+        for server_address in raw_server_addresses:
+            resolved = self._resolve_reachable_server_address(server_address)
+            normalized_addresses.append(resolved)
+            if resolved != server_address:
+                logger.warning("Resolved VERL server address %s -> %s", server_address, resolved)
+
+        return normalized_addresses
+
+    def _resolve_reachable_server_address(self, server_address: str) -> str:
+        """Best-effort resolve to a reachable local HTTP endpoint for LiteLLM."""
+        host, port = self._split_host_port(server_address)
+        for candidate in self._candidate_server_addresses(host=host, port=port):
+            if self._probe_vllm_server(candidate):
+                return candidate
+
+        logger.warning("Could not confirm reachability for VERL server %s; using raw address", server_address)
+        return server_address
+
+    def _candidate_server_addresses(self, host: str, port: int) -> list[str]:
+        candidates: list[str] = []
+
+        def add(candidate_host: str) -> None:
+            candidate = self._join_host_port(candidate_host, port)
+            if candidate not in candidates:
+                candidates.append(candidate)
+
+        add(host)
+
+        if host not in {"127.0.0.1", "localhost"}:
+            add("127.0.0.1")
+            add("localhost")
+
+        # Ray sometimes returns a node IP that isn't the address the HTTP server is
+        # actually reachable on from the parent process. Probe local interface addrs too.
+        for local_host in self._get_local_candidate_hosts():
+            add(local_host)
+
+        return candidates
+
+    def _probe_vllm_server(self, server_address: str, timeout: float = 2.0) -> bool:
+        url = f"http://{server_address}/v1/models"
+        try:
+            response = requests.get(url, timeout=timeout)
+            if response.ok:
+                logger.info("Verified vLLM backend reachability via %s", url)
+                return True
+            logger.warning("vLLM backend probe returned HTTP %s for %s", response.status_code, url)
+        except requests.RequestException as exc:
+            logger.debug("vLLM backend probe failed for %s: %s", url, exc)
+        return False
+
+    def _get_local_candidate_hosts(self) -> list[str]:
+        hosts: list[str] = []
+
+        env_hosts = os.environ.get("RLLM_PROXY_SERVER_HOST_CANDIDATES", "")
+        for env_host in env_hosts.split(","):
+            env_host = env_host.strip()
+            if env_host and env_host not in hosts:
+                hosts.append(env_host)
+
+        try:
+            hostname = socket.gethostname()
+            for addr_info in socket.getaddrinfo(hostname, None, family=socket.AF_UNSPEC, type=socket.SOCK_STREAM):
+                host = addr_info[4][0]
+                if host and host not in hosts:
+                    hosts.append(host)
+        except socket.gaierror:
+            pass
+
+        return hosts
+
+    @staticmethod
+    def _split_host_port(server_address: str) -> tuple[str, int]:
+        if server_address.startswith("["):
+            host, port = server_address.rsplit("]:", 1)
+            return host[1:], int(port)
+
+        host, port = server_address.rsplit(":", 1)
+        return host, int(port)
+
+    @staticmethod
+    def _join_host_port(host: str, port: int) -> str:
+        if ":" in host and not host.startswith("["):
+            return f"[{host}]:{port}"
+        return f"{host}:{port}"
 
     def _generate_litellm_config(self) -> dict[str, Any]:
         """Generate LiteLLM configuration with all vLLM replicas.
@@ -399,6 +487,7 @@ class VerlProxyManager(ProxyManager):
                     "litellm_params": {
                         "model": f"hosted_vllm/{self.model_name}",
                         "api_base": f"http://{server_address}/v1",
+                        "api_key": os.environ.get("RLLM_HOSTED_VLLM_API_KEY", "EMPTY"),
                         "drop_params": True,
                     },
                     # Optional: Add replica identifier for debugging

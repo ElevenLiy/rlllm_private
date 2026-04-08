@@ -53,13 +53,15 @@ def convert_messages_to_tokens_and_masks(messages: list[dict[str, str]], tokeniz
     all_msg_tokens = []
     all_msg_masks = []
 
-    def _convert_message_to_tokens_and_masks(msg, first_msg=False, generation_msg=False):
+    def _convert_message_to_tokens_and_masks(msg, first_msg=False, generation_msg=False, strip_assistant_prefix=False):
         msg_text = parser.parse([msg], add_generation_prompt=generation_msg, is_first_msg=first_msg)
 
-        # Remove the assistant token since it is contained in previous message as generation prompt
-        if msg["role"] == "assistant":
+        # Strip the assistant prefix only when tokenizing a standalone assistant
+        # response fragment. In multi-message prompts, assistant turns must keep
+        # their own header tokens to match parser.parse(messages, ...).
+        if msg["role"] == "assistant" and strip_assistant_prefix:
             assert msg_text.startswith(parser.assistant_token), f"Expected assistant token {parser.assistant_token} but got {msg_text}"
-            msg_text = msg_text.replace(parser.assistant_token, "")
+            msg_text = msg_text[len(parser.assistant_token) :]
 
         msg_tokens = tokenizer.encode(msg_text, add_special_tokens=False)
         mask_value = 1 if msg["role"] == "assistant" else 0
@@ -68,7 +70,12 @@ def convert_messages_to_tokens_and_masks(messages: list[dict[str, str]], tokeniz
         return msg_tokens, msg_mask
 
     for i, msg in enumerate(messages):
-        msg_tokens, msg_mask = _convert_message_to_tokens_and_masks(msg, first_msg=(contains_first_msg and i == 0), generation_msg=(contains_generation_msg and i == len(messages) - 1))
+        msg_tokens, msg_mask = _convert_message_to_tokens_and_masks(
+            msg,
+            first_msg=(contains_first_msg and i == 0),
+            generation_msg=(contains_generation_msg and i == len(messages) - 1),
+            strip_assistant_prefix=(msg["role"] == "assistant" and len(messages) == 1),
+        )
         all_msg_tokens.extend(msg_tokens)
         all_msg_masks.extend(msg_mask)
 

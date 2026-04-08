@@ -1,6 +1,7 @@
 import copy
 import json
 import logging
+import re
 import uuid
 from typing import Any
 
@@ -12,6 +13,32 @@ from rllm.tools.multi_tool import MultiTool
 from rllm.tools.tool_base import Tool
 
 logger = logging.getLogger(__name__)
+
+
+def _extract_clean_reasoning(response: str) -> str:
+    """Best-effort cleanup for raw model text when structured tool parsing fails."""
+    if not response:
+        return ""
+
+    prefix = response.split("<tool_call>", 1)[0]
+    if "<think>" in prefix:
+        prefix = prefix.split("<think>", 1)[1]
+    if "</think>" in prefix:
+        prefix = prefix.split("</think>", 1)[0]
+
+    prefix = re.sub(r"<\|im_start\|>[^\n]*\n?", "", prefix)
+    prefix = prefix.replace("<|im_end|>", "")
+    return prefix.strip()
+
+
+def _has_incomplete_structured_output(response: str) -> bool:
+    if not response:
+        return False
+    if "<tool_call>" in response and "</tool_call>" not in response:
+        return True
+    if "<think>" in response and "</think>" not in response:
+        return True
+    return False
 
 
 class ToolAgent(BaseAgent):
@@ -104,44 +131,88 @@ class ToolAgent(BaseAgent):
         Updates the agent's state based on the model's response.
         Parses the response, updates messages, and the current step in the trajectory.
         """
+        model_output = kwargs.get("model_output")
         tool_calls_dict = []
-        assistant_content = response
-        # Attempt to parse tool calls from string response
-        try:
-            tool_calls = self.tool_parser.parse(response)
+        assistant_content = response or ""
+        reasoning = ""
+        parsed_from_response = False
+        raw_response = response or ""
+
+        if model_output is not None:
+            reasoning = (getattr(model_output, "reasoning", None) or "").strip()
+            structured_content = getattr(model_output, "content", None)
+            if structured_content is not None:
+                assistant_content = structured_content
+            raw_response = getattr(model_output, "raw_text", None) or raw_response
+
+            structured_tool_calls = getattr(model_output, "tool_calls", None) or []
             tool_calls_dict = [
                 {
                     "id": str(uuid.uuid4()),
                     "type": "function",
                     "function": tool_call.to_dict(),
                 }
-                for tool_call in tool_calls
+                for tool_call in structured_tool_calls
             ]
 
-        except Exception as e:
-            logger.error(f"Failed to parse tool calls from string response: {e}")
-            tool_calls_dict = []  # Indicate no valid tool calls parsed
+        # Attempt to parse tool calls from string response
+        if not tool_calls_dict:
+            try:
+                tool_calls = self.tool_parser.parse(response)
+                tool_calls_dict = [
+                    {
+                        "id": str(uuid.uuid4()),
+                        "type": "function",
+                        "function": tool_call.to_dict(),
+                    }
+                    for tool_call in tool_calls
+                ]
+                parsed_from_response = len(tool_calls_dict) > 0
+            except Exception as e:
+                logger.error(f"Failed to parse tool calls from string response: {e}")
+                tool_calls_dict = []  # Indicate no valid tool calls parsed
+
+        if parsed_from_response:
+            cleaned_reasoning = _extract_clean_reasoning(response)
+            if cleaned_reasoning:
+                reasoning = cleaned_reasoning
+            assistant_content = ""
+
+        raw_response_to_store = raw_response if not _has_incomplete_structured_output(raw_response) else ""
 
         # Append assistant message to chat history
+        if tool_calls_dict:
+            assistant_content = ""
+
         assistant_message = {"role": "assistant", "content": assistant_content}
+        if raw_response_to_store:
+            assistant_message["raw_response"] = raw_response_to_store
+        if reasoning:
+            assistant_message["reasoning"] = reasoning
         if len(tool_calls_dict) > 0:
+            assistant_message["tool_calls"] = copy.deepcopy(tool_calls_dict)
             # Ensure arguments within tool_calls_dict are strings if needed by downstream processing
             for call in tool_calls_dict:
                 if isinstance(call.get("function", {}).get("arguments"), dict):
                     call["function"]["arguments"] = json.dumps(call["function"]["arguments"])
         else:
+            fallback_reasoning = reasoning or _extract_clean_reasoning(raw_response or response)
+            fallback_content = assistant_content if assistant_content and not _has_incomplete_structured_output(assistant_content) else ""
+            fallback_thought = "\n\n".join(part for part in [fallback_reasoning, fallback_content] if part).strip()
             tool_calls_dict = [
                 {
                     "id": str(uuid.uuid4()),
                     "type": "function",
                     "function": {
-                        "name": "finish",
+                        "name": "think",
                         "arguments": {
-                            "response": assistant_content,
+                            "thought": fallback_thought or "No valid tool call was parsed from the model output.",
                         },
                     },
                 }
             ]
+            assistant_message["tool_calls"] = copy.deepcopy(tool_calls_dict)
+            tool_calls_dict[0]["function"]["arguments"] = json.dumps(tool_calls_dict[0]["function"]["arguments"])
 
         self.messages.append(assistant_message)
 

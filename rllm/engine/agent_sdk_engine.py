@@ -492,6 +492,51 @@ class AgentSdkEngine:
         termination_reasons = []
         metrics = []
 
+        def _recover_completion_ids(step, trajectory_id: str, step_idx: int) -> list[int]:
+            model_output = step.model_output
+            if not isinstance(model_output, ModelOutput):
+                return []
+
+            if model_output.completion_ids:
+                return model_output.completion_ids
+
+            text_parts: list[str] = []
+            if model_output.reasoning:
+                text_parts.append(model_output.reasoning)
+            if model_output.content:
+                text_parts.append(model_output.content)
+
+            if not text_parts and step.chat_completions:
+                last_message = step.chat_completions[-1]
+                if isinstance(last_message, dict):
+                    content = last_message.get("content")
+                    if isinstance(content, str) and content:
+                        text_parts.append(content)
+
+            completion_text = "".join(text_parts)
+            if not completion_text:
+                logger.warning(
+                    "Skipping step %s/%s: missing completion_ids and completion text",
+                    trajectory_id,
+                    step_idx,
+                )
+                return []
+
+            recovered = self.rollout_engine.tokenizer.encode(
+                completion_text,
+                add_special_tokens=False,
+            )
+            logprobs = model_output.logprobs or []
+            if logprobs and len(recovered) != len(logprobs):
+                logger.warning(
+                    "Recovered completion_ids length mismatch for %s/%s: ids=%s logprobs=%s",
+                    trajectory_id,
+                    step_idx,
+                    len(recovered),
+                    len(logprobs),
+                )
+            return recovered
+
         for i, episode in enumerate(episodes):
             total_steps = 0
 
@@ -566,7 +611,11 @@ class AgentSdkEngine:
 
                         prompts.append(prompt_ids)
 
-                        response_ids = torch.tensor(step.model_output.completion_ids, dtype=torch.long)
+                        completion_ids = _recover_completion_ids(step, trajectory_id, step_idx)
+                        if not completion_ids:
+                            continue
+
+                        response_ids = torch.tensor(completion_ids, dtype=torch.long)
                         responses.append(response_ids)
 
                         rollout_logprob = torch.tensor(step.model_output.logprobs, dtype=torch.float32)

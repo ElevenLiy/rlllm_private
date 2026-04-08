@@ -6,6 +6,7 @@ from rllm.tools.tool_base import ToolCall
 @dataclass
 class ModelOutput:
     text: str | None = None
+    raw_text: str | None = None
     content: str | None = None
     reasoning: str | None = None
     tool_calls: list[ToolCall] | None = None
@@ -21,6 +22,7 @@ class ModelOutput:
     def to_dict(self):
         return {
             "text": self.text,
+            "raw_text": self.raw_text,
             "content": self.content,
             "reasoning": self.reasoning,
             "tool_calls": [tool_call.to_dict() for tool_call in self.tool_calls] if self.tool_calls else [],
@@ -38,6 +40,7 @@ class ModelOutput:
     def from_dict(cls, data: dict):
         return cls(
             text=data.get("text"),
+            raw_text=data.get("raw_text"),
             content=data.get("content"),
             reasoning=data.get("reasoning"),
             tool_calls=[ToolCall(**tool_call) for tool_call in data.get("tool_calls", [])] if data.get("tool_calls") else None,

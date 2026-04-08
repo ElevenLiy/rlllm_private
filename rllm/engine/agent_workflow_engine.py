@@ -487,7 +487,7 @@ class AgentWorkflowEngine:
             "chat_completions": np.array(chat_completions_list, dtype=object),  # chat completions for distillation
         }
 
-        if any(mm_inputs is not None for mm_inputs in multi_modal_inputs_list):
+        if any(mm_inputs for mm_inputs in multi_modal_inputs_list):
             non_tensors["multi_modal_inputs"] = np.array(multi_modal_inputs_list, dtype=object)
 
         tensors = {

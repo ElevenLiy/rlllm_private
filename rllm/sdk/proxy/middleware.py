@@ -2,8 +2,8 @@
 
 This middleware:
 - Decodes /meta/{slug} and rewrites the path to the standard OpenAI-style path.
-- Injects decoded metadata into the JSON body (payload["rllm_metadata"]) so downstream
-  handlers and callbacks reading kwargs["data"] see it.
+- Injects decoded metadata into several LiteLLM-compatible metadata shapes so
+  callback code remains resilient across LiteLLM version changes.
 """
 
 from __future__ import annotations
@@ -44,15 +44,35 @@ class MetadataRoutingMiddleware(BaseHTTPMiddleware):
                     payload = None
 
                 if isinstance(payload, dict):
-                    # Set metadata so LiteLLM will automatically copy it to requester_metadata
-                    # LiteLLM's add_litellm_data_to_request() copies payload["metadata"]
-                    # to data[_metadata_variable_name]["requester_metadata"]
                     if "metadata" not in payload:
                         payload["metadata"] = {}
-                    payload["metadata"].update({"rllm_metadata": metadata})
+
+                    payload_metadata = payload["metadata"]
+                    if not isinstance(payload_metadata, dict):
+                        payload_metadata = {}
+                        payload["metadata"] = payload_metadata
+
+                    # Keep the simple top-level copy for older proxy callbacks.
+                    payload_metadata["rllm_metadata"] = dict(metadata)
+
+                    # Mirror the same payload into requester_metadata because newer
+                    # LiteLLM versions often move request metadata there before
+                    # callbacks observe the request body.
+                    requester_metadata = payload_metadata.get("requester_metadata")
+                    if not isinstance(requester_metadata, dict):
+                        requester_metadata = {}
+                    requester_metadata["rllm_metadata"] = dict(metadata)
+                    payload_metadata["requester_metadata"] = requester_metadata
+
+                    # Some callback paths inspect these top-level keys directly.
+                    payload["rllm_metadata"] = dict(metadata)
+                    payload["requester_metadata"] = dict(requester_metadata)
 
                     mutated_body = json.dumps(payload).encode("utf-8")
-                    logger.debug("MetadataRoutingMiddleware: injected rllm_metadata and metadata (for requester_metadata) with keys=%s", list(metadata.keys()))
+                    logger.debug(
+                        "MetadataRoutingMiddleware: injected metadata with keys=%s",
+                        list(metadata.keys()),
+                    )
 
                     # Update cached body so request.json()/body() observes the mutation
                     request._body = mutated_body  # type: ignore[attr-defined]

@@ -2,6 +2,7 @@ import json
 import logging
 import uuid
 from collections import defaultdict
+from typing import Any
 
 from rllm.agents.agent import Step, Trajectory
 from rllm.engine.rollout import ModelOutput
@@ -22,10 +23,22 @@ def _extract_prompt_token_ids(output_payload: dict) -> list[int]:
 
 
 def _extract_completion_token_ids(output_payload: dict) -> list[int]:
-    completion_ids = output_payload.get("choices")[0].get("provider_specific_fields", {}).get("token_ids")
-    if completion_ids is None:
+    choices = output_payload.get("choices") or []
+    if not choices:
         return []
-    return list(completion_ids)
+
+    choice = choices[0]
+
+    for candidate in (
+        choice.get("token_ids"),
+        choice.get("output_token_ids"),
+        choice.get("provider_specific_fields", {}).get("token_ids"),
+        choice.get("logprobs", {}).get("token_ids") if isinstance(choice.get("logprobs"), dict) else None,
+    ):
+        if candidate is not None:
+            return list(candidate)
+
+    return []
 
 
 def _extract_logprobs(output_payload: dict) -> list[float]:
@@ -41,7 +54,9 @@ def _extract_logprobs(output_payload: dict) -> list[float]:
 
     choice = choices[0]
     provider_fields = choice.get("provider_specific_fields", {})
-    response_logprobs = provider_fields.get("response_logprobs")
+    response_logprobs = choice.get("response_logprobs")
+    if response_logprobs is None:
+        response_logprobs = provider_fields.get("response_logprobs")
 
     if response_logprobs is not None:
         logprobs_list = list(response_logprobs)
@@ -59,7 +74,7 @@ def _extract_logprobs(output_payload: dict) -> list[float]:
     return [float(entry.get("logprob")) for entry in logprobs if entry and entry.get("logprob") is not None]
 
 
-def _clean_message(raw_msg: dict) -> dict[str, str]:
+def _clean_message(raw_msg: dict) -> dict[str, Any]:
     """Normalize a raw LLM message dict for storage in Step.chat_completions.
 
     Step.chat_completions is typed ``list[dict[str, str]]``, so we must:
@@ -67,7 +82,7 @@ def _clean_message(raw_msg: dict) -> dict[str, str]:
     - Promote ``provider_specific_fields.reasoning`` to top-level ``reasoning``
     - Drop non-string values that cannot be meaningfully stored
     """
-    cleaned: dict[str, str] = {}
+    cleaned: dict[str, Any] = {}
     for key, value in raw_msg.items():
         if value is None:
             continue
@@ -77,6 +92,9 @@ def _clean_message(raw_msg: dict) -> dict[str, str]:
                 reasoning = value.get("reasoning")
                 if reasoning and "reasoning" not in raw_msg:
                     cleaned["reasoning"] = str(reasoning)
+            continue
+        if key == "tool_calls" and isinstance(value, list):
+            cleaned[key] = value
             continue
         if isinstance(value, str):
             cleaned[key] = value

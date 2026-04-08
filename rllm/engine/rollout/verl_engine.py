@@ -58,6 +58,9 @@ class VerlEngine(RolloutEngine):
         sampling_params.update(kwargs)
 
         max_tokens = sampling_params.pop("max_tokens", sampling_params.pop("max_new_tokens", self.max_response_length))
+        sampling_params["max_new_tokens"] = max_tokens
+        if "stop_token_ids" not in sampling_params and hasattr(self.chat_parser, "stop_sequences") and getattr(self.chat_parser, "stop_sequences", None):
+            sampling_params["stop_token_ids"] = list(self.chat_parser.stop_sequences)
 
         prompt = self.chat_parser.parse(messages, add_generation_prompt=True, is_first_msg=True, tools=tools, accumulate_reasoning=accumulate_reasoning)
         request_prompt_ids = self.tokenizer.encode(prompt, add_special_tokens=False)  # list[int]
@@ -88,11 +91,13 @@ class VerlEngine(RolloutEngine):
             logprobs = logprobs[:max_tokens]
 
         completion_text = self.tokenizer.decode(completion_ids, skip_special_tokens=True)
+        raw_completion_text = self.tokenizer.decode(completion_ids, skip_special_tokens=False)
         # TODO: implement parse_completion for the standard parser
         parsed_output = self.chat_parser.parse_completion(completion_ids)
 
         return ModelOutput(
             text=completion_text,
+            raw_text=raw_completion_text,
             content=parsed_output["content"],
             reasoning=parsed_output["reasoning"],
             tool_calls=parsed_output["tool_calls"],

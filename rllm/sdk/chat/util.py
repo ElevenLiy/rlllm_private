@@ -40,8 +40,9 @@ def extract_completion_tokens(response_payload: Mapping[str, Any]) -> list[int] 
     """Extract completion token IDs from response payload.
 
     Looks for token IDs in various locations within the response:
-    1. choice.output_token_ids (some providers)
-    2. choice.logprobs.token_ids (vLLM and others)
+    1. choice.token_ids (newer vLLM/OpenAI-compatible responses)
+    2. choice.output_token_ids (some providers)
+    3. choice.logprobs.token_ids (older vLLM and others)
 
     Args:
         response_payload: The response dict from the LLM API
@@ -53,6 +54,9 @@ def extract_completion_tokens(response_payload: Mapping[str, Any]) -> list[int] 
     if not choices:
         return None
     choice0 = choices[0]
+    token_ids = choice0.get("token_ids")
+    if isinstance(token_ids, list):
+        return [int(tok) for tok in token_ids]
     output_ids = choice0.get("output_token_ids")
     if isinstance(output_ids, list):
         return [int(tok) for tok in output_ids]

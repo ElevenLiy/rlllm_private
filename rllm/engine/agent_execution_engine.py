@@ -227,6 +227,13 @@ class AgentExecutionEngine:
         for step_idx in range(self.max_steps):
             # Get action from agent
             prompt_messages = agent.chat_completions.copy()
+            step_prompt_ids, _ = convert_messages_to_tokens_and_masks(
+                prompt_messages,
+                tokenizer=self.tokenizer,
+                parser=self.chat_parser,
+                contains_first_msg=True,
+                contains_generation_msg=True,
+            )
             # Max remaining tokens left for the response
             # For enforced max prompt at each step, no need to deduct here
             if not self.enforce_max_prompt_length:
@@ -246,21 +253,13 @@ class AgentExecutionEngine:
             start_time = time.time()
             model_output = await self.get_model_response(prompt_messages, application_id, **kwargs)
             response = model_output.text
+            raw_completion_ids = getattr(model_output, "completion_ids", None) or []
             delta_time = time.time() - start_time
             llm_time += delta_time
             total_time += delta_time
-            # Update steps
-            prompt_response_pair = {
-                "prompt": self.chat_parser.parse(prompt_messages, add_generation_prompt=True, is_first_msg=True),
-                "response": response,
-                "prompt_ids": model_output.prompt_ids,
-                "completion_ids": model_output.completion_ids,
-                "logprobs": model_output.logprobs,
-            }
-            episode_steps.append(prompt_response_pair)
 
             # Update agent with model response
-            action: Action = agent.update_from_model(response)
+            action: Action = agent.update_from_model(response, model_output=model_output)
             action = action.action
 
             # Take step in environment using the executor
@@ -308,8 +307,57 @@ class AgentExecutionEngine:
             env_msg_tokens, env_msg_masks = [], []
             if assistant_message:
                 assistant_msg_tokens, assistant_msg_masks = convert_messages_to_tokens_and_masks([assistant_message], tokenizer=self.tokenizer, parser=self.chat_parser, contains_first_msg=False, contains_generation_msg=False)
+            if raw_completion_ids:
+                assistant_msg_tokens = raw_completion_ids
+                assistant_msg_masks = [1] * len(raw_completion_ids)
             if env_messages:
                 env_msg_tokens, env_msg_masks = convert_messages_to_tokens_and_masks(env_messages, tokenizer=self.tokenizer, parser=self.chat_parser, contains_first_msg=False, contains_generation_msg=True)
+
+            # Materialize the exact next-step prompt after applying the
+            # environment feedback. This lets us assemble trajectories from
+            # prompt-to-prompt token diffs instead of re-encoding standalone
+            # assistant/env fragments that may not compose identically once
+            # wrapped in the full chat template.
+            next_prompt_text = self.chat_parser.parse(
+                chat_completions_messages,
+                add_generation_prompt=True,
+                is_first_msg=True,
+            )
+            next_prompt_ids = self.tokenizer.encode(next_prompt_text, add_special_tokens=False)
+
+            env_suffix_text = self.chat_parser.parse(
+                env_messages,
+                add_generation_prompt=True,
+                is_first_msg=False,
+            )
+            env_suffix_ids = self.tokenizer.encode(env_suffix_text, add_special_tokens=False)
+
+            actual_prompt_ids = getattr(model_output, "prompt_ids", None) or step_prompt_ids
+            if actual_prompt_ids != step_prompt_ids:
+                mismatch_pos = None
+                for pos, (expected, actual) in enumerate(zip(step_prompt_ids, actual_prompt_ids, strict=False)):
+                    if expected != actual:
+                        mismatch_pos = pos
+                        break
+                logger.warning(
+                    "Rendered prompt_ids differ from rollout prompt_ids at step %s: rendered_len=%s actual_len=%s first_diff=%s",
+                    step_idx,
+                    len(step_prompt_ids),
+                    len(actual_prompt_ids),
+                    mismatch_pos,
+                )
+
+            prompt_response_pair = {
+                "prompt": self.chat_parser.parse(prompt_messages, add_generation_prompt=True, is_first_msg=True),
+                "response": response,
+                "prompt_ids": actual_prompt_ids,
+                "rendered_prompt_ids": step_prompt_ids,
+                "next_prompt_ids": next_prompt_ids,
+                "completion_ids": assistant_msg_tokens,
+                "env_suffix_ids": env_suffix_ids,
+                "logprobs": model_output.logprobs,
+            }
+            episode_steps.append(prompt_response_pair)
 
             # Update repsonse token length
             response_token_len += len(assistant_msg_tokens) + len(env_msg_tokens)
@@ -446,43 +494,66 @@ class AgentExecutionEngine:
         - response_masks: Mask indicating which tokens contribute to loss (only completion_ids)
         """
 
-        # Start with initial prompt from first step
+        # Start with the exact prompt sent to the model for the first step.
         initial_prompt_ids = steps[0]["prompt_ids"]
         accumulated_sequence = initial_prompt_ids.copy()
         response_tokens = []
         response_masks = []
         is_valid_trajectory = True
 
-        for i, step in enumerate(steps):
-            current_prompt_ids = step["prompt_ids"]
-            current_completion_ids = step["completion_ids"]
+        for step in steps:
+            next_prompt_ids = step.get("next_prompt_ids", [])
+            env_suffix_ids = step.get("env_suffix_ids", [])
+            assistant_fallback_ids = step.get("completion_ids", [])
 
-            if i == 0:
-                # First step: just add completion
-                response_tokens.extend(current_completion_ids)
-                response_masks.extend([1] * len(current_completion_ids))  # completion contributes to loss
-                accumulated_sequence.extend(current_completion_ids)
-            else:
-                if current_prompt_ids[: len(accumulated_sequence)] != accumulated_sequence:
-                    # Find the first differing position
-                    prefix = current_prompt_ids[: len(accumulated_sequence)]
-                    diff_pos = None
-                    for i, (expected, actual) in enumerate(zip(accumulated_sequence, prefix, strict=False)):
-                        if expected != actual:
-                            diff_pos = i
-                            break
+            if next_prompt_ids[: len(accumulated_sequence)] != accumulated_sequence:
+                prefix = next_prompt_ids[: len(accumulated_sequence)]
+                diff_pos = None
+                for pos, (expected, actual) in enumerate(zip(accumulated_sequence, prefix, strict=False)):
+                    if expected != actual:
+                        diff_pos = pos
+                        break
 
-                    if diff_pos is not None:
-                        logger.warning(f"When assemble steps, detect the trajectory not accumulative at position {diff_pos}. Expected: {accumulated_sequence[diff_pos : diff_pos + 5]}, Got: {prefix[diff_pos : diff_pos + 5]}. Setting response_masks to all 0s. This is likely due to retokenization.")
-                    else:
-                        logger.warning(f"When assemble steps, detect length mismatch. Expected length: {len(accumulated_sequence)}, Got length: {len(prefix)}. Setting response_masks to all 0s.")
+                if diff_pos is not None:
+                    logger.warning(
+                        "When assemble steps, detect the trajectory not accumulative at position "
+                        f"{diff_pos}. Expected: {accumulated_sequence[diff_pos : diff_pos + 5]}, "
+                        f"Got: {prefix[diff_pos : diff_pos + 5]}. Setting response_masks to all 0s."
+                    )
+                else:
+                    logger.warning(
+                        "When assemble steps, detect length mismatch. "
+                        f"Expected length: {len(accumulated_sequence)}, Got length: {len(prefix)}. "
+                        "Setting response_masks to all 0s."
+                    )
 
+                is_valid_trajectory = False
+                break
+
+            delta_ids = next_prompt_ids[len(accumulated_sequence) :]
+            assistant_ids = delta_ids
+            env_ids = []
+
+            if env_suffix_ids:
+                if len(delta_ids) >= len(env_suffix_ids) and delta_ids[-len(env_suffix_ids) :] == env_suffix_ids:
+                    assistant_ids = delta_ids[: -len(env_suffix_ids)]
+                    env_ids = env_suffix_ids
+                elif assistant_fallback_ids and delta_ids[: len(assistant_fallback_ids)] == assistant_fallback_ids:
+                    assistant_ids = assistant_fallback_ids
+                    env_ids = delta_ids[len(assistant_fallback_ids) :]
+                else:
+                    logger.warning(
+                        "When assemble steps, could not split assistant/env suffix from next prompt delta. "
+                        "Setting response_masks to all 0s."
+                    )
                     is_valid_trajectory = False
                     break
 
-                response_tokens.extend(current_prompt_ids[len(accumulated_sequence) :] + current_completion_ids)
-                response_masks.extend([0] * (len(current_prompt_ids) - len(accumulated_sequence)) + [1] * len(current_completion_ids))  # completion contributes to loss
-                accumulated_sequence = current_prompt_ids + current_completion_ids
+            response_tokens.extend(assistant_ids)
+            response_masks.extend([1] * len(assistant_ids))
+            response_tokens.extend(env_ids)
+            response_masks.extend([0] * len(env_ids))
+            accumulated_sequence = next_prompt_ids
 
         assert len(response_masks) == len(response_tokens)
 
