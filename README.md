@@ -22,6 +22,32 @@ cd rllm-private
 git branch --show-current
 ```
 
+## 最小启动
+
+如果机器已经具备可用的 Python/CUDA/vLLM/flash-attn 环境，可以先直接按下面这组命令起 OpenThoughts 9B 训练：
+
+```bash
+git clone git@github.com:to1a/rllm-private.git
+cd rllm-private
+
+pip uninstall verl -y 2>/dev/null
+pip install -e third_party/verl/
+
+export TB_EXECUTION_BACKEND=k8s
+export TB_KUBECONFIG=/data/k8s_access/kubeconfig
+export TB_KUBECTL_BIN=/data/k8s_access/kubectl.real
+export TB_TASKS_ROOT=/data/openthoughts-extracted-tasks
+export MODEL_PATH=/data/models/Qwen3___5-9B
+
+bash scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh
+```
+
+这条命令默认依赖共享 `/data` 上已经准备好的 3 类资源：
+
+- `OpenThoughts` 任务数据：`/data/openthoughts-extracted-tasks`
+- `Qwen3.5-9B` 模型：`/data/models/Qwen3___5-9B`
+- K8s 连接材料：`/data/k8s_access/kubeconfig` 和 `/data/k8s_access/kubectl.real`
+
 ## 代码入口
 
 - 主说明文档：`docs/openthoughts_terminal_bench.md`
