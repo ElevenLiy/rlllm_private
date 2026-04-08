@@ -6,21 +6,17 @@ This repository is the private collaboration mirror for the current OpenThoughts
 
 - `main` is the current reproducible collaboration branch.
 - `upstream-main` preserves the imported upstream baseline from the training server.
-- `snapshots/2026-04-08/` is a docs-and-patches directory inside this repo, not a separate branch.
+- The main experiment notes live in `docs/openthoughts_terminal_bench.md`.
+- The current launch script lives in `scripts/openthoughts_terminal_bench/`.
+- The reference patched `verl` source lives in `third_party/verl/`.
 
-If you want the working setup, clone `main`:
+Clone and start from `main`:
 
 ```bash
 git clone git@github.com:to1a/rllm-private.git
 cd rllm-private
 git branch --show-current
 ```
-
-## Where To Start
-
-- Main collaboration notes: [`snapshots/2026-04-08/README.md`](./snapshots/2026-04-08/README.md)
-- Current launch script: [`snapshots/2026-04-08/scripts/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh`](./snapshots/2026-04-08/scripts/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh)
-- Runtime patch notes: [`snapshots/2026-04-08/patches/`](./snapshots/2026-04-08/patches)
 
 ## Current Training Shape
 
@@ -51,8 +47,8 @@ Dataset and task roots are machine-local.
 
 `/data` is optional, not required.
 
-## Notes
+## Start Here
 
-- The current OpenThoughts collaboration snapshot lives in `snapshots/2026-04-08/`.
-- The full local `rllm` history plus the collaboration snapshot was also preserved on the training server as:
-  - `/root/work/artifacts/rllm_history_with_openthoughts_snapshot_20260408.bundle`
+- Docs: `docs/openthoughts_terminal_bench.md`
+- Script: `scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh`
+- Vendored `verl`: `third_party/verl/`
