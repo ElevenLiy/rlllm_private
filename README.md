@@ -16,6 +16,23 @@
 
 rLLM is an open-source framework for training AI agents with reinforcement learning. Swap in a tracked client, define a reward function, and let RL handle the rest — no matter what agent framework you use.
 
+## Private Collaboration Notes
+
+- `main` is the current reproducible collaboration branch. If you want the working OpenThoughts setup, clone `main`.
+- `upstream-main` preserves the imported upstream baseline from the training server.
+- `snapshots/2026-04-08/` is a documentation and patch directory inside the repo, not a separate branch.
+- Dataset and task roots are machine-local. If a machine has a shared `/data` mount, you can use it; otherwise place datasets anywhere convenient and point env vars such as `TB_TASKS_ROOT` to the correct path.
+
+Quick start:
+
+```bash
+git clone git@github.com:to1a/rllm-private.git
+cd rllm-private
+git branch --show-current
+```
+
+For the current OpenThoughts training notes, start with [`snapshots/2026-04-08/README.md`](./snapshots/2026-04-08/README.md).
+
 
 ## Core Features
 
