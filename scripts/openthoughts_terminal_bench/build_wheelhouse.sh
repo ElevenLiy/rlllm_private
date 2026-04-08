@@ -10,8 +10,8 @@ PIP_BIN="${PIP_BIN:-${PYTHON_BIN} -m pip}"
 
 mkdir -p "${WHEELHOUSE_DIR}"
 
-# Build/download all third-party wheels pinned in the shared lock file.
-${PYTHON_BIN} -m pip wheel -r "${LOCKFILE}" -w "${WHEELHOUSE_DIR}"
+# Build/download all third-party wheels pinned in the shared lock file without re-resolving dependencies.
+${PYTHON_BIN} -m pip wheel --no-deps -r "${LOCKFILE}" -w "${WHEELHOUSE_DIR}"
 
 # Local repo code should still come from the checked-out workspace.
 # We only package third-party dependencies here.
