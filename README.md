@@ -30,8 +30,12 @@ git branch --show-current
 git clone git@github.com:to1a/rllm-private.git
 cd rllm-private
 
-pip uninstall verl -y 2>/dev/null
-pip install -e third_party/verl/
+# 推荐：新建 Python 3.12 环境后，先按锁文件安装第三方依赖
+pip install -r requirements/openthoughts_terminal_bench.lock.txt
+
+# rllm 和 verl 都固定用仓内代码
+pip install --no-build-isolation --no-deps -e third_party/verl
+pip install --no-build-isolation --no-deps -e .
 
 # 如果当前 shell 已经在可用环境里，可以不设 VENV_PATH。
 # 如果依赖不在当前环境里，再按需指定，例如：
@@ -44,6 +48,22 @@ export TB_TASKS_ROOT=/data/openthoughts-extracted-tasks
 export MODEL_PATH=/data/models/Qwen3___5-9B
 
 bash scripts/openthoughts_terminal_bench/run_openthoughts_nl2bash_9b_noeval_resp24k_total32k_sp2.sh
+```
+
+如果要做可打包/离线分发，优先使用：
+
+- `requirements/openthoughts_terminal_bench.packable.lock.txt`
+- `scripts/openthoughts_terminal_bench/build_wheelhouse.sh`
+
+典型流程：
+
+```bash
+bash scripts/openthoughts_terminal_bench/build_wheelhouse.sh
+
+# 目标机器
+pip install --no-index --find-links /path/to/wheelhouse -r requirements/openthoughts_terminal_bench.packable.lock.txt
+pip install --no-build-isolation --no-deps -e third_party/verl
+pip install --no-build-isolation --no-deps -e .
 ```
 
 这条命令默认依赖共享 `/data` 上已经准备好的 3 类资源：
