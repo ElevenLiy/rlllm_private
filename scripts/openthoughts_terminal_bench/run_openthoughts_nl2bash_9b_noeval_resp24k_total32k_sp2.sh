@@ -48,6 +48,11 @@ export TB_KUBECONFIG="${TB_KUBECONFIG:-/data/k8s_access/kubeconfig}"
 export TB_KUBECTL_BIN="${TB_KUBECTL_BIN:-/data/k8s_access/kubectl.real}"
 export TB_KUBE_READY_TIMEOUT=1800
 export TB_KUBE_CONTROL_MAX_PARALLEL="${TB_KUBE_CONTROL_MAX_PARALLEL:-256}"
+export TB_RUN_OWNER="$(printf %s "${TB_RUN_OWNER:-${USER:-root}}" | tr "[:upper:]" "[:lower:]" | tr -cs "a-z0-9-" "-" | sed "s/^-*//; s/-*$//")"
+TB_HOST_TAG="$(hostname | tr "[:upper:]" "[:lower:]" | tr -cs "a-z0-9" "-" | sed "s/^-*//; s/-*$//" | cut -c1-8)"
+TB_TIME_TAG="$(date +%m%d%H%M%S)"
+export TB_RUN_ID="${TB_RUN_ID:-${TB_TIME_TAG}-${TB_HOST_TAG}}"
+export TB_KUBE_NAMESPACE="${TB_KUBE_NAMESPACE:-terminal-bench-${TB_RUN_OWNER:-root}-${TB_RUN_ID}}"
 
 export NCCL_NVLS_ENABLE=0
 export VLLM_ALLREDUCE_USE_SYMM_MEM=0

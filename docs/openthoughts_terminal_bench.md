@@ -72,7 +72,8 @@ pip install --no-build-isolation --no-deps -e .
 export TB_EXECUTION_BACKEND=k8s
 export TB_KUBECONFIG=/data/k8s_access/kubeconfig
 export TB_KUBECTL_BIN=/data/k8s_access/kubectl.real
-export TB_KUBE_NAMESPACE=terminal-bench
+export TB_RUN_OWNER=${TB_RUN_OWNER:-yourname}
+export TB_KUBE_NAMESPACE=${TB_KUBE_NAMESPACE:-terminal-bench-${TB_RUN_OWNER}-$(date +%m%d%H%M%S)}
 export TB_KUBE_READY_TIMEOUT=1800
 export TB_KUBE_CONTROL_MAX_PARALLEL=256
 ```
