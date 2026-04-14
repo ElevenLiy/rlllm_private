@@ -1,5 +1,21 @@
 import os
 
+# Force tb environment's libstdc++ to be loaded first for all subprocesses
+# This fixes flashinfer GLIBCXX_3.4.32 compatibility issue
+tb_lib_path = "/root/anaconda3/envs/tb/lib"
+current_ld_path = os.environ.get("LD_LIBRARY_PATH", "")
+if current_ld_path:
+    os.environ["LD_LIBRARY_PATH"] = f"{tb_lib_path}:{current_ld_path}"
+else:
+    os.environ["LD_LIBRARY_PATH"] = tb_lib_path
+
+# Also set LIBRARY_PATH for compile-time linking (flashinfer JIT compilation)
+current_lib_path = os.environ.get("LIBRARY_PATH", "")
+if current_lib_path:
+    os.environ["LIBRARY_PATH"] = f"{tb_lib_path}:{current_lib_path}"
+else:
+    os.environ["LIBRARY_PATH"] = tb_lib_path
+
 import hydra
 
 from rllm.agents.tool_agent import ToolAgent

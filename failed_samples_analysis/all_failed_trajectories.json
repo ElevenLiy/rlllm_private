@@ -1,0 +1,4178 @@
+[
+  {
+    "trajectory_id": 3,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 118,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 7,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 26,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 30,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 24,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 29,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 25,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 5,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 28,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 23,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 94,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 1,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 89,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 109,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 19,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 69,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 47,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 108,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 111,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 15,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 40,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 90,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 46,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 10,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 12,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 32,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 95,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 92,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 13,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 34,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 112,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 93,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 88,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 83,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 43,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 42,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 8,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 44,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 11,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 9,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 41,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 45,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 0,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 24,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 104,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 88,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 30,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 25,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 69,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 95,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 81,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 68,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 65,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 2,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 7,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 26,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 29,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 5,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 1,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 85,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 110,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 75,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 72,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 82,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 74,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 73,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 36,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 83,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 119,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 23,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 103,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 34,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 78,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 39,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 32,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 3,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 77,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 16,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 79,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 76,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 35,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 96,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 22,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 18,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 4,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 33,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 20,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 100,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 19,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 38,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 6,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 97,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 53,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 63,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 93,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 83,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 11,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 81,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 114,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 84,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 8,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 94,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 90,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 58,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 0,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 112,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 113,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 10,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 86,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 65,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 117,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 2,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 15,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 97,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 95,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 125,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 23,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 127,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 85,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 64,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 92,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 66,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 18,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 12,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 100,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 57,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 118,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 70,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 121,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 123,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 82,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 71,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 67,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 69,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 96,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 59,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 116,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 79,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 28,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 103,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 89,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 24,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 47,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 75,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 56,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 9,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 72,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 68,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 3,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 61,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 77,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 126,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 120,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 73,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 13,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 39,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 119,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 124,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 38,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 60,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 32,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 78,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 88,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 122,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 76,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 34,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 33,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 36,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 35,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 41,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 44,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 11,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 35,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 103,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 100,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 3,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 94,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 45,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 25,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 52,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 9,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 53,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 55,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 15,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 49,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 83,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 93,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 110,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 33,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 85,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 48,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 51,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 86,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 82,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 54,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 8,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 21,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 19,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 81,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 0,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 18,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 16,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 107,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 38,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 84,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 95,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 28,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 20,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 117,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 17,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 13,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 113,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 118,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 10,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 105,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 12,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 111,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 116,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 48,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 15,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 90,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 33,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 7,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 38,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 89,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 114,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 1,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 88,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 61,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 34,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 8,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 13,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 97,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 28,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 35,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 57,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 10,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 65,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 56,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 59,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 36,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 12,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 11,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 58,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 93,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 60,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 32,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 9,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 110,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 63,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 124,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 39,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 81,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 85,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 82,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 122,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 5,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 3,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 7,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 6,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 0,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 127,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 117,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 89,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 58,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 4,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 90,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 57,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 1,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 121,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 51,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 60,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 92,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 10,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 123,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 114,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 119,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 56,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 55,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 97,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 116,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 49,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 59,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 53,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 63,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 100,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 82,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 67,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 94,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 70,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 68,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 125,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 43,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 42,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 85,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 11,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 83,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 66,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 33,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 86,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 15,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 8,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 81,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 44,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 118,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 96,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 84,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 38,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 40,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 52,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 47,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 24,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 34,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 2,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 39,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 36,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 46,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 17,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 41,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 22,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 103,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 124,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 20,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 18,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 23,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 21,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 16,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 45,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 85,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 77,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 112,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 113,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 117,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 105,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 121,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 122,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 119,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 54,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 90,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 24,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 52,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 48,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 30,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 109,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 50,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 107,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 29,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 26,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 118,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 15,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 127,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 20,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 8,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 55,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 92,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 12,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 76,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 11,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 114,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 9,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 124,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 95,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 51,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 10,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 120,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 13,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 116,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 73,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 83,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 89,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 17,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 79,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 126,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 125,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 88,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 60,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 57,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 75,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 59,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 19,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 93,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 61,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 72,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 74,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 56,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 78,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 58,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 63,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 123,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 94,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 45,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 57,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 106,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 104,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 17,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 124,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 111,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 127,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 108,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 126,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 60,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 105,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 26,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 95,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 63,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 1,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 6,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 2,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 5,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 121,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 3,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 109,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 120,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 7,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 70,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 123,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 125,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 71,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 50,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 4,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 122,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 54,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 92,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 25,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 29,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 96,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 30,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 100,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 45,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 89,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 97,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 41,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 103,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 51,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 50,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 53,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 33,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 52,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 113,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 30,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 49,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 94,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 28,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 73,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 80,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 72,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 54,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 74,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 76,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 55,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 2,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 75,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 35,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 96,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 68,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 56,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 29,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 48,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 65,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 6,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 59,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 25,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 70,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 112,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 26,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 36,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 58,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 118,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 86,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 83,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 67,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 69,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 3,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 116,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 82,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 117,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 45,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 114,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 85,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 84,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 4,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 71,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 44,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 42,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 81,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 119,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 7,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 40,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 64,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 47,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 99,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 100,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 118,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 33,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 39,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 105,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 103,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 97,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 36,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 32,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 102,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 109,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 101,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 53,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 96,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 16,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 47,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 44,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 84,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 54,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 52,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 35,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 48,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 51,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 122,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 30,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 113,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 50,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 19,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 29,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 114,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 24,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 34,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 17,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 27,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 18,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 26,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 28,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 107,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 25,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 60,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 116,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 20,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 119,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 89,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 7,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 38,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 56,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 98,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 125,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 112,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 116,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 77,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 10,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 32,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 100,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 61,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 50,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 115,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 92,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 26,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 9,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 62,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 29,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 12,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 122,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 25,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 94,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 71,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 119,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 65,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 40,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 107,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 113,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 19,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 23,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 28,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 11,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 87,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 6,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 120,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 14,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 52,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 73,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 42,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 2,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 60,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 63,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 1,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 31,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 111,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 79,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 15,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 114,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 37,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 84,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 67,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 0,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 93,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 5,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 82,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 121,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 88,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 78,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 96,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 36,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 13,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 91,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 86,
+    "completion_reason": "TRUNCATION",
+    "reward": 0.0,
+    "success": false
+  },
+  {
+    "trajectory_id": 108,
+    "completion_reason": "ENV_DONE",
+    "reward": 0.0,
+    "success": false
+  }
+]

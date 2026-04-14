@@ -1318,6 +1318,8 @@ class TerminalBenchDirectEnv(BaseEnv):
         return [
             ssh_bin,
             "-o",
+            "BatchMode=yes",
+            "-o",
             "StrictHostKeyChecking=no",
             "-o",
             "ControlMaster=auto",

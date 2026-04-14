@@ -1,0 +1,18 @@
+{
+  "total_trajectories": 1404,
+  "failed_count": 696,
+  "success_count": 708,
+  "failure_rate": 0.49572649572649574,
+  "categories": {
+    "TRUNCATION": {
+      "count": 318,
+      "percentage": 45.689655172413794,
+      "description": "模型无法在规定步数内完成任务，可能陷入循环或策略低效"
+    },
+    "ENV_DONE_FAILED": {
+      "count": 378,
+      "percentage": 54.310344827586206,
+      "description": "模型完成了执行但给出了错误答案"
+    }
+  }
+}
