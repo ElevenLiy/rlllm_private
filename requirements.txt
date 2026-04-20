@@ -238,7 +238,7 @@ requests-oauthlib==2.0.0
 rich==13.9.4
 rich-toolkit==0.19.7
 rignore==0.7.6
--e git+ssh://git@github-elevenliy/ElevenLiy/rlllm_private.git@5e9ae4f68906b686764ad194145789fdc280636a#egg=rllm
+-e git+ssh://git@github.com/ElevenLiy/rlllm_private.git@5e9ae4f68906b686764ad194145789fdc280636a#egg=rllm
 rllm-model-gateway==0.1.0
 rpds-py==0.30.0
 rq==2.7.0
@@ -299,7 +299,7 @@ urllib3==2.6.3
 uuid_utils==0.14.1
 uvicorn==0.42.0
 uvloop==0.21.0
--e git+ssh://git@github-elevenliy/ElevenLiy/rlllm_private.git@5e9ae4f68906b686764ad194145789fdc280636a#egg=verl&subdirectory=third_party/verl
+-e git+ssh://git@github.com/ElevenLiy/rlllm_private.git@5e9ae4f68906b686764ad194145789fdc280636a#egg=verl&subdirectory=third_party/verl
 virtualenv==21.2.0
 vllm==0.18.1
 wandb==0.25.1
