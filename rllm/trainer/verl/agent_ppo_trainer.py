@@ -1,4 +1,5 @@
 import asyncio
+import glob
 import json
 import math
 import os
@@ -454,15 +455,38 @@ class AgentPPOTrainer(RayPPOTrainer):
                     return
 
     def _validate_agent(self):
+        eval_save_dir = os.path.join(self.config.trainer.default_local_dir, "eval_results")
+        os.makedirs(eval_save_dir, exist_ok=True)
+
+        completed_batches = {}
+        for fpath in sorted(glob.glob(os.path.join(eval_save_dir, "eval_results_batch*.json"))):
+            with open(fpath) as f:
+                batch_data = json.load(f)
+            completed_batches[batch_data["batch_idx"]] = batch_data
+        if completed_batches:
+            pprint(f"[Resume] Found {len(completed_batches)} completed batch(es): {sorted(completed_batches.keys())}")
+
         rewards_lst = []
         data_source_lst = []
         uid_lst = []
-        for test_data in self.val_dataloader:
+        task_name_lst = []
+
+        for batch_idx, test_data in enumerate(self.val_dataloader):
+            if batch_idx in completed_batches:
+                prev = completed_batches[batch_idx]
+                rewards_lst.append(torch.tensor(prev["rewards_flat"], dtype=torch.float32))
+                data_source_lst.append(prev["data_sources"])
+                uid_lst.append(np.array(prev["uids"], dtype=object))
+                task_name_lst.extend(prev.get("task_names", []))
+                pprint(f"[Resume] Skipping batch {batch_idx} ({len(prev['rewards_flat'])} trajectories already done)")
+                continue
+
             test_batch = DataProto.from_single_dict(test_data)
             test_batch.non_tensor_batch["uid"] = np.array([str(uuid.uuid4()) for _ in range(len(test_batch.batch))], dtype=object)
             n_val_samples = self.config.actor_rollout_ref.rollout.val_kwargs.n
+            batch_task_names = list(test_batch.non_tensor_batch.get("task_name", [f"unknown_{i}" for i in range(len(test_batch.batch))]))
             test_batch = test_batch.repeat(repeat_times=n_val_samples, interleave=True)
-            test_batch.pop(["input_ids", "attention_mask", "position_ids"])  # these are not needed for environment based interaction
+            test_batch.pop(["input_ids", "attention_mask", "position_ids"])
             test_batch.meta_info = {
                 "eos_token_id": self.tokenizer.eos_token_id,
                 "pad_token_id": self.tokenizer.pad_token_id,
@@ -474,50 +498,60 @@ class AgentPPOTrainer(RayPPOTrainer):
 
             if self.config.rllm.stepwise_advantage.enable:
                 test_output_gen_batch = self.generate_agent_steps(meta_info=test_batch.meta_info, uids=test_batch.non_tensor_batch["uid"])
-                # for validation, we only need the last step
                 is_last_step = test_output_gen_batch.non_tensor_batch["is_last_step"]
                 last_step_indices = np.where(is_last_step == True)[0]
-                test_output_gen_batch = test_output_gen_batch.select_idxs(last_step_indices)  # This batch only has last steps
+                test_output_gen_batch = test_output_gen_batch.select_idxs(last_step_indices)
             else:
                 test_output_gen_batch, _ = self.generate_agent_trajectory(meta_info=test_batch.meta_info)
 
             test_batch = test_batch.union(test_output_gen_batch)
 
             reward_tensor = test_batch.batch["token_level_scores"]
+            batch_rewards = reward_tensor.sum(-1).cpu()
+            batch_data_sources = list(test_batch.non_tensor_batch.get("data_source", ["unknown"] * reward_tensor.shape[0]))
+            batch_uids = list(test_batch.non_tensor_batch["uid"])
 
-            rewards_lst.append(reward_tensor.sum(-1).cpu())
-            data_source_lst.append(test_batch.non_tensor_batch.get("data_source", ["unknown"] * reward_tensor.shape[0]))
-            uid_lst.append(test_batch.non_tensor_batch["uid"])
+            rewards_lst.append(batch_rewards)
+            data_source_lst.append(batch_data_sources)
+            uid_lst.append(np.array(batch_uids, dtype=object))
+            task_name_lst.extend(batch_task_names)
 
-        reward_tensor = torch.cat(rewards_lst, dim=0)  # (batch_size,)
-        data_sources = np.concatenate(data_source_lst, axis=0)
-        # evaluate test_score based on data source
+            batch_result = {
+                "batch_idx": batch_idx,
+                "rewards_flat": batch_rewards.tolist(),
+                "data_sources": batch_data_sources,
+                "uids": batch_uids,
+                "task_names": batch_task_names,
+            }
+            save_path = os.path.join(eval_save_dir, f"eval_results_batch{batch_idx}.json")
+            with open(save_path, "w") as f:
+                json.dump(batch_result, f)
+            pprint(f"Saved batch {batch_idx} results ({len(batch_rewards)} trajectories) to {save_path}")
+
+        reward_tensor = torch.cat(rewards_lst, dim=0)
+        data_sources = np.concatenate(data_source_lst, axis=0) if data_source_lst else np.array([])
+        uid_tensor = np.concatenate(uid_lst, axis=0) if uid_lst else np.array([])
+
         data_source_reward = {}
-
-        # to group for pass@k
-        uid_tensor = np.concatenate(uid_lst, axis=0)
-        data_source_uid_pass_rates = {}  # data source to {uid: pass or not}
+        data_source_uid_pass_rates = {}
 
         for i in range(reward_tensor.shape[0]):
-            data_source = data_sources[i]
+            data_source = str(data_sources[i])
 
             if data_source not in data_source_reward:
                 data_source_reward[data_source] = []
             data_source_reward[data_source].append(reward_tensor[i].item())
 
-            # pass@k
             if data_source not in data_source_uid_pass_rates:
                 data_source_uid_pass_rates[data_source] = {}
 
-            uid = uid_tensor[i]
+            uid = str(uid_tensor[i])
             if uid not in data_source_uid_pass_rates[data_source]:
-                data_source_uid_pass_rates[data_source][uid] = 0  # default to not pass
-            # take highest score
+                data_source_uid_pass_rates[data_source][uid] = 0
             data_source_uid_pass_rates[data_source][uid] = max(data_source_uid_pass_rates[data_source][uid], reward_tensor[i].item())
 
         metric_dict = {}
         for data_source, rewards in data_source_reward.items():
-            # clip rewards to be between 0 and 1
             rewards_array = np.array(rewards)
             rewards_array = np.clip(rewards_array, 0, 1)
             metric_dict[f"val/test_score/{data_source}"] = np.mean(rewards_array)
@@ -525,8 +559,49 @@ class AgentPPOTrainer(RayPPOTrainer):
         for data_source, pass_rates in data_source_uid_pass_rates.items():
             pass_k_lst = []
             for uid, pass_score in pass_rates.items():
-                pass_k_lst.append(pass_score >= 1)  # assuming 1 means passed
+                pass_k_lst.append(pass_score >= 1)
             metric_dict[f"val/test_score/pass@k/{data_source}"] = np.mean(pass_k_lst)
+
+        per_task_rewards = {}
+        n_val_samples = self.config.actor_rollout_ref.rollout.val_kwargs.n
+        for ds, uid_scores in data_source_uid_pass_rates.items():
+            for uid, best_score in uid_scores.items():
+                per_task_rewards[uid] = {"best_score": best_score}
+        idx = 0
+        for ds, rewards in data_source_reward.items():
+            for r in rewards:
+                uid = str(uid_tensor[idx])
+                if "all_rewards" not in per_task_rewards.get(uid, {}):
+                    per_task_rewards.setdefault(uid, {})["all_rewards"] = []
+                per_task_rewards[uid]["all_rewards"].append(r)
+                idx += 1
+
+        n_tasks = len(per_task_rewards)
+        success_rates = []
+        for uid, info in per_task_rewards.items():
+            rews = info.get("all_rewards", [])
+            sr = sum(1 for r in rews if r > 0) / max(len(rews), 1)
+            info["success_rate"] = sr
+            success_rates.append(sr)
+
+        final_results = {
+            "total_tasks": n_tasks,
+            "total_trajectories": int(reward_tensor.shape[0]),
+            "avg_success_rate": float(np.mean(success_rates)) if success_rates else 0.0,
+            "tasks_zero_success": sum(1 for sr in success_rates if sr == 0),
+            "tasks_full_success": sum(1 for sr in success_rates if sr == 1.0),
+            "tasks_25_75": sum(1 for sr in success_rates if 0.25 <= sr <= 0.75),
+            "metrics": {k: float(v) for k, v in metric_dict.items()},
+            "per_task_rewards": per_task_rewards,
+            "task_names": task_name_lst,
+        }
+        final_path = os.path.join(eval_save_dir, "eval_results.json")
+        with open(final_path, "w") as f:
+            json.dump(final_results, f, indent=2)
+        pprint(f"[Eval Complete] {n_tasks} tasks, {int(reward_tensor.shape[0])} trajectories. "
+               f"Avg success rate: {final_results['avg_success_rate']:.1%}. "
+               f"Zero: {final_results['tasks_zero_success']}, Full: {final_results['tasks_full_success']}, "
+               f"25-75%: {final_results['tasks_25_75']}. Saved to {final_path}")
 
         return metric_dict
 

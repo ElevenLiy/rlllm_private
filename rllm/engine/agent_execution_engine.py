@@ -604,7 +604,12 @@ class AgentExecutionEngine:
                     import traceback
 
                     traceback.print_exc()
-                    raise e
+                    colorful_print(
+                        f"Trajectory {env_idx} FAILED after all retries: {e}. "
+                        "Returning dummy trajectory with reward=0.",
+                        "red",
+                    )
+                    result = self._make_dummy_trajectory(env_idx, mode)
                 return result
 
         # Create all N conceptual tasks. Their execution will be throttled by the semaphore
@@ -619,12 +624,60 @@ class AgentExecutionEngine:
                 colorful_print(f"Number of Trajectories {tasks_completed}/{len(self.envs)} completed", "cyan")
                 yield result
             except Exception as e:
-                raise e
+                import traceback
+
+                traceback.print_exc()
+                tasks_completed += 1
+                colorful_print(
+                    f"Unexpected trajectory error at {tasks_completed}/{len(self.envs)}: {e}. Yielding dummy.",
+                    "red",
+                )
+                yield self._make_dummy_trajectory(tasks_completed - 1, mode)
 
         if self.engine_name == "verl":
             await self.rollout_engine.sleep()  # type: ignore
 
         self.executor.shutdown(wait=False, cancel_futures=True)
+
+    def _make_dummy_trajectory(self, env_idx: int, mode: str):
+        """Return a zero-reward placeholder when a trajectory fails unrecoverably."""
+        if mode == "Token":
+            bos = self.tokenizer.bos_token_id or 0
+            eos = self.tokenizer.eos_token_id or 0
+            return {
+                "prompt_tokens": torch.tensor([bos], dtype=torch.long),
+                "response_tokens": torch.tensor([eos], dtype=torch.long),
+                "response_masks": torch.tensor([0], dtype=torch.long),
+                "trajectory_reward": 0.0,
+                "idx": env_idx,
+                "chat_completions": [],
+                "metrics": {
+                    "steps": 0,
+                    "reward_time": 0.0,
+                    "env_time": 0.0,
+                    "llm_time": 0.0,
+                    "total_time": 0.0,
+                    "token_mismatch": 0.0,
+                    "failed": True,
+                },
+            }
+        elif mode == "Step":
+            return {
+                "steps": [],
+                "trajectory_reward": 0.0,
+                "idx": env_idx,
+                "mc_returns": [],
+                "termination_reason": "TRAJECTORY_FAILED",
+            }
+        elif mode == "Text":
+            from rllm.agents.agent import Trajectory
+            traj = Trajectory()
+            traj.reward = 0.0
+            return traj
+        elif mode == "Conversation":
+            return []
+        else:
+            raise ValueError(f"Cannot create dummy trajectory for unknown mode: {mode}")
 
     async def execute_tasks(self, tasks: list[dict]):
         """
