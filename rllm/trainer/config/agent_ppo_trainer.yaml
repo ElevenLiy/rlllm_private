@@ -50,6 +50,21 @@ rllm:
     enable: False
     mode: broadcast # [broadcast, per_step]
     normalize_by_steps: False
+    aasg:
+      enable: False
+      # Training-time A-ASG must keep the GRPO baseline state-only by default.
+      # Turning this on is useful for diagnostics, but it makes the grouping
+      # action-dependent and can bias the policy-gradient baseline.
+      include_action_phase: False
+      include_action_in_embedding: False
+      conditional_clustering: True
+      num_prototypes: 256
+      min_base_group_size: 4
+      conditional_cluster_scale: 0.5
+      conditional_cluster_power: 0.33
+      hash_dim: 256
+      kmeans_iters: 8
+      text_max_chars: 4096
   compact_filtering:
     enable: False
     mask_max_prompt_length_exceeded: True

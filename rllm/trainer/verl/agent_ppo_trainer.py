@@ -1,9 +1,12 @@
 import asyncio
 import glob
+import hashlib
 import json
 import math
 import os
+import re
 import uuid
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import reduce
 from pprint import pprint
@@ -366,11 +369,19 @@ class AgentPPOTrainer(RayPPOTrainer):
                         if self.config.rllm.stepwise_advantage.enable:
                             if self.config.rllm.stepwise_advantage.mode == "per_step":
                                 batch.batch["token_level_rewards"] = batch.batch["mc_returns"]
-                                batch.non_tensor_batch["uid"] = batch.non_tensor_batch["step_ids"]
+                                uid_key = "step_ids"
+                                if self._aasg_enabled():
+                                    if "aasg_group_ids" in batch.non_tensor_batch:
+                                        uid_key = "aasg_group_ids"
+                                    else:
+                                        print("[A-ASG] enabled but aasg_group_ids missing; falling back to step_ids")
+                                batch.non_tensor_batch["uid"] = batch.non_tensor_batch[uid_key]
 
                                 is_pad_step = batch.non_tensor_batch["is_pad_step"]
                                 non_pad_step_indices = np.where(is_pad_step == False)[0]
                                 batch = batch.select_idxs(non_pad_step_indices)  # This batch only has non_pad steps
+                                if uid_key == "aasg_group_ids":
+                                    self._add_aasg_metrics(batch, metrics)
                             elif self.config.rllm.stepwise_advantage.mode == "broadcast":
                                 # In case of step-wise advantage broadcast, we would split out the final steps, then merge again
                                 is_last_step = batch.non_tensor_batch["is_last_step"]
@@ -694,8 +705,11 @@ class AgentPPOTrainer(RayPPOTrainer):
             chat_completions.append(traj["chat_completions"])
             traj_metrics.append(traj["metrics"])
 
-        # Flatten traj_metrics into a dict of lists
-        traj_metrics = {k: [d[k] for d in traj_metrics] for k in traj_metrics[0]}
+        # Flatten traj_metrics into a dict of lists (keys may differ across trajectories)
+        all_metric_keys = set()
+        for d in traj_metrics:
+            all_metric_keys.update(d.keys())
+        traj_metrics = {k: [d.get(k) for d in traj_metrics] for k in all_metric_keys}
         # Aggregate metrics (mean, min, max)
         for k, v_list in traj_metrics.items():
             v_list = [v for v in v_list if v is not None and v >= 0]
@@ -710,13 +724,16 @@ class AgentPPOTrainer(RayPPOTrainer):
                 }
             )
 
-        # Save chat completions to a file
+        # Save chat completions to a file (skip if already exists from a previous run)
         save_dir = os.path.join(self.config.trainer.default_local_dir, "chat_completions")
         os.makedirs(save_dir, exist_ok=True)
-        # Save it into a jsonl files (self.global_steps)
-        with open(os.path.join(save_dir, f"{self.global_steps}.jsonl"), "w") as f:
-            for chat_completion in chat_completions:
-                f.write(json.dumps(chat_completion) + "\n")
+        save_path = os.path.join(save_dir, f"{self.global_steps}.jsonl")
+        if os.path.exists(save_path):
+            print(f"Chat completions file already exists, skipping: {save_path}")
+        else:
+            with open(save_path, "w") as f:
+                for chat_completion in chat_completions:
+                    f.write(json.dumps(chat_completion) + "\n")
 
         # left pad prompts
         max_prompt_length = self.config.data.max_prompt_length
@@ -839,6 +856,167 @@ class AgentPPOTrainer(RayPPOTrainer):
                 break
             yield item
 
+    def _aasg_enabled(self) -> bool:
+        return bool(OmegaConf.select(self.config, "rllm.stepwise_advantage.aasg.enable", default=False))
+
+    def _aasg_conf(self, name: str, default):
+        return OmegaConf.select(self.config, f"rllm.stepwise_advantage.aasg.{name}", default=default)
+
+    def _normalize_aasg_text(self, text: str) -> str:
+        if not text:
+            return ""
+        max_chars = int(self._aasg_conf("text_max_chars", 4096))
+        text = text[-max_chars:]
+        text = re.sub(r"\x1b\[[0-9;]*[A-Za-z]", " ", text)
+        text = re.sub(r"/(?:[\w.\-]+/)+[\w.\-]*", " <PATH> ", text)
+        text = re.sub(r"\b[0-9a-f]{8,}\b", " <HEX> ", text, flags=re.IGNORECASE)
+        text = re.sub(r"\b\d+\b", " <NUM> ", text)
+        text = re.sub(r"\s+", " ", text).strip().lower()
+        return text
+
+    def _infer_aasg_phase(self, response: str) -> str:
+        if not response:
+            return "empty"
+        text = response.lower()
+        if "finish" in text or "submit" in text:
+            return "submit"
+        if "think" in text:
+            return "think"
+        if "str_replace_editor" in text:
+            match = re.search(r'"command"\s*:\s*"([^"]+)"', response)
+            return f"edit:{match.group(1)}" if match else "edit"
+        if "execute_bash" in text:
+            command_match = re.search(r'"command"\s*:\s*"([^"]+)"', response, flags=re.DOTALL)
+            command = command_match.group(1).lower() if command_match else text
+            if re.search(r"\b(pytest|run-tests|tox|unittest|npm test|go test|cargo test)\b", command):
+                return "bash:test"
+            if re.search(r"\b(ls|cat|sed|grep|find|pwd|head|tail|tree|rg)\b", command):
+                return "bash:inspect"
+            if re.search(r"\b(pip|apt|npm install|conda|mamba)\b", command):
+                return "bash:install"
+            return "bash:other"
+        return "assistant"
+
+    def _infer_aasg_error_bucket(self, normalized_prompt: str) -> str:
+        tail = normalized_prompt[-2048:]
+        if "traceback" in tail or "exception" in tail or "assertionerror" in tail:
+            return "traceback"
+        if "permission denied" in tail:
+            return "permission"
+        if "no such file" in tail or "not found" in tail or "cannot find" in tail:
+            return "missing"
+        if "failed" in tail or "error" in tail or "exit code" in tail or "returncode" in tail:
+            return "error"
+        if "passed" in tail or "success" in tail or "all tests" in tail:
+            return "passing"
+        return "normal"
+
+    def _infer_aasg_progress_bucket(self, step_idx: int) -> str:
+        if step_idx <= 0:
+            return "start"
+        if step_idx <= 2:
+            return "early"
+        if step_idx <= 6:
+            return "middle"
+        return "late"
+
+    def _hashing_vectors(self, texts: list[str], dim: int) -> np.ndarray:
+        vectors = np.zeros((len(texts), dim), dtype=np.float32)
+        token_pattern = re.compile(r"<[A-Z]+>|[a-zA-Z_][a-zA-Z0-9_./-]{1,}|[0-9]+")
+        for row, text in enumerate(texts):
+            tokens = token_pattern.findall(text)
+            tokens.extend(f"{a}_{b}" for a, b in zip(tokens, tokens[1:]))
+            for token in tokens:
+                digest = hashlib.blake2b(token.encode("utf-8"), digest_size=8).digest()
+                value = int.from_bytes(digest, "little", signed=False)
+                col = value % dim
+                sign = 1.0 if ((value >> 8) & 1) else -1.0
+                vectors[row, col] += sign
+        norms = np.linalg.norm(vectors, axis=1, keepdims=True)
+        return vectors / np.maximum(norms, 1e-6)
+
+    def _kmeans_labels(self, vectors: np.ndarray, k: int) -> np.ndarray:
+        n = vectors.shape[0]
+        if k <= 1 or n <= 1:
+            return np.zeros(n, dtype=np.int64)
+        if k >= n:
+            return np.arange(n, dtype=np.int64)
+
+        centroids = [vectors[0]]
+        min_dist = np.sum((vectors - centroids[0]) ** 2, axis=1)
+        for _ in range(1, k):
+            next_idx = int(np.argmax(min_dist))
+            centroids.append(vectors[next_idx])
+            dist = np.sum((vectors - vectors[next_idx]) ** 2, axis=1)
+            min_dist = np.minimum(min_dist, dist)
+        centroids = np.stack(centroids, axis=0)
+
+        labels = np.zeros(n, dtype=np.int64)
+        for _ in range(int(self._aasg_conf("kmeans_iters", 8))):
+            distances = np.sum((vectors[:, None, :] - centroids[None, :, :]) ** 2, axis=2)
+            labels = np.argmin(distances, axis=1)
+            for cluster_id in range(k):
+                mask = labels == cluster_id
+                if np.any(mask):
+                    centroids[cluster_id] = vectors[mask].mean(axis=0)
+            norms = np.linalg.norm(centroids, axis=1, keepdims=True)
+            centroids = centroids / np.maximum(norms, 1e-6)
+        return labels
+
+    def _build_aasg_group_ids(self, prompts: list[str], responses: list[str], step_indices: list[int]) -> tuple[list[str], list[str]]:
+        include_action_phase = bool(self._aasg_conf("include_action_phase", True))
+        include_action_in_embedding = bool(self._aasg_conf("include_action_in_embedding", False))
+        conditional = bool(self._aasg_conf("conditional_clustering", True))
+        min_group_size = int(self._aasg_conf("min_base_group_size", 4))
+        max_prototypes = int(self._aasg_conf("num_prototypes", 256))
+        scale = float(self._aasg_conf("conditional_cluster_scale", 0.5))
+        power = float(self._aasg_conf("conditional_cluster_power", 0.33))
+        dim = int(self._aasg_conf("hash_dim", 256))
+
+        normalized_prompts = [self._normalize_aasg_text(prompt) for prompt in prompts]
+        base_ids = []
+        embedding_texts = []
+        for prompt, response, step_idx in zip(normalized_prompts, responses, step_indices, strict=True):
+            phase = self._infer_aasg_phase(response) if include_action_phase else "state"
+            error = self._infer_aasg_error_bucket(prompt)
+            progress = self._infer_aasg_progress_bucket(step_idx)
+            base_id = f"{phase}|{error}|{progress}"
+            base_ids.append(base_id)
+            if include_action_in_embedding:
+                embedding_texts.append(f"{prompt} {self._normalize_aasg_text(response)}")
+            else:
+                embedding_texts.append(prompt)
+
+        group_ids = ["" for _ in prompts]
+        base_to_indices: dict[str, list[int]] = defaultdict(list)
+        for idx, base_id in enumerate(base_ids):
+            base_to_indices[base_id].append(idx)
+
+        for base_id, indices in base_to_indices.items():
+            if not conditional or len(indices) < min_group_size:
+                for idx in indices:
+                    group_ids[idx] = f"aasg:{base_id}:p0"
+                continue
+
+            k = int(round(scale * (len(indices) ** power)))
+            k = max(1, min(max_prototypes, len(indices), k))
+            vectors = self._hashing_vectors([embedding_texts[idx] for idx in indices], dim=dim)
+            labels = self._kmeans_labels(vectors, k)
+            for idx, label in zip(indices, labels, strict=True):
+                group_ids[idx] = f"aasg:{base_id}:p{int(label)}"
+
+        return group_ids, base_ids
+
+    def _add_aasg_metrics(self, batch, metrics: dict):
+        group_ids = batch.non_tensor_batch.get("aasg_group_ids")
+        if group_ids is None or len(group_ids) == 0:
+            return
+        unique, counts = np.unique(group_ids, return_counts=True)
+        metrics["aasg/groups"] = int(len(unique))
+        metrics["aasg/singleton_rate"] = float(np.mean(counts == 1))
+        metrics["aasg/avg_group_size"] = float(np.mean(counts))
+        metrics["aasg/max_group_size"] = int(np.max(counts))
+
     def _transform_agent_steps(self, steps: list[dict], uids: np.ndarray):
         from verl.utils.torch_functional import pad_sequence_to_length
 
@@ -847,6 +1025,9 @@ class AgentPPOTrainer(RayPPOTrainer):
 
         all_prompts_list = []
         all_responses_list = []
+        all_prompt_texts = []
+        all_response_texts = []
+        all_step_indices = []
 
         step_numbers = []  # number of steps of each episode, 0 indexed
         all_steps_idx_list = []
@@ -870,6 +1051,9 @@ class AgentPPOTrainer(RayPPOTrainer):
 
             all_prompts_list.extend([torch.tensor(self.tokenizer.encode(s["prompt"], add_special_tokens=False), dtype=torch.long) for s in episode_steps])
             all_responses_list.extend([torch.tensor(self.tokenizer.encode(s["response"], add_special_tokens=False), dtype=torch.long) for s in episode_steps])
+            all_prompt_texts.extend([s["prompt"] for s in episode_steps])
+            all_response_texts.extend([s["response"] for s in episode_steps])
+            all_step_indices.extend(list(range(len(episode_steps))))
 
             step_numbers.append(len(episode_steps) - 1)
             training_rewards.append(training_reward)
@@ -962,6 +1146,10 @@ class AgentPPOTrainer(RayPPOTrainer):
             "batch_id": np.array([batch_id for _ in range(len(all_steps_idx_list))]),  # in case need to differentiate which iteration the step is coming from
             "step_ids": np.array(all_steps_step_ids),
         }
+        if self._aasg_enabled():
+            aasg_group_ids, aasg_base_group_ids = self._build_aasg_group_ids(all_prompt_texts, all_response_texts, all_step_indices)
+            non_tensor_batch["aasg_group_ids"] = np.array(aasg_group_ids, dtype=object)
+            non_tensor_batch["aasg_base_group_ids"] = np.array(aasg_base_group_ids, dtype=object)
 
         meta_info = {"repeat_counts": [x + 1 for x in step_numbers]}
 
